@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FROMAQI is a premium sandwich shop that serves fresh ingredients and carefully crafted sandwiches. From classic sandwiches to avocado chicken and salmon salad, we offer a variety of menus.">
+    <meta name="keywords" content="FROMAQI, sandwich, premium sandwich, Gangnam sandwich, avocado chicken, salmon salad">
+    <meta name="author" content="FROMAQI">
+    <meta property="og:title" content="FROMAQI - Premium Sandwich near Gangnam Station">
+    <meta property="og:description" content="3 minutes from Gangnam Station, premium sandwiches made with fresh ingredients. Various menus including classic, avocado chicken, salmon salad">
+    <meta property="og:image" content="https://fromaqi.com/images/og-image.jpg">
+    <meta property="og:url" content="https://fromaqi.com">
+    <title>FROMAQI - Premium Sandwich</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">FROMAQI</div>
+            <ul class="nav-links">
+                <li><a href="menu_en.html">MENU</a></li>
+                <li><a href="#brand-story">BRAND STORY</a></li>
+                <li><a href="#locations">LOCATIONS</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+                <li><a href="#search"><i class="fas fa-search"></i></a></li>
+                <li><a href="#cart"><i class="fas fa-shopping-cart"></i></a></li>
+                <li class="language-selector">
+                    <select id="languageSelect" onchange="changeLanguage()">
+                        <option value="en" selected>EN</option>
+                        <option value="ko">KO</option>
+                    </select>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-slider">
+            <img src="images/hero1.jpeg" alt="Premium Sandwich" class="hero-image">
+            <div class="view-more">
+                <span>VIEW MORE</span>
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </div>
+    </section>
+
+    <section class="best-products">
+        <div class="section-header">
+            <div class="section-title">
+                <h2>FROMAQI BEST</h2>
+                <p>Best menu items updated daily</p>
+            </div>
+            <a href="menu_en.html" class="view-all">VIEW MENU <i class="fas fa-chevron-right"></i></a>
+        </div>
+        <div class="product-grid">
+            <div class="product-item">
+                <img src="images/sandwich1.png" alt="Pesto Chicken">
+                <div class="product-info">
+                    <span class="category">SANDWICH</span>
+                    <h3>Pesto Chicken</h3>
+                    <p class="description">Chicken breast, homemade pesto sauce, mozzarella cheese (41%), sauce, lettuce, onion, pepper</p>
+                    <div class="product-meta">
+                        <span class="price">₩10,400</span>
+                        <span class="set-price">Set +₩4,600</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="images/sandwich2.png" alt="Pork Pastrami">
+                <div class="product-info">
+                    <span class="category">SANDWICH</span>
+                    <h3>Pork Pastrami</h3>
+                    <p class="description">Pastrami, homemade mustard sauce, pickle, Swiss cheese, lettuce</p>
+                    <div class="product-meta">
+                        <span class="price">₩10,400</span>
+                        <span class="set-price">Set +₩4,600</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="images/sandwich3.png" alt="Mexican Taco">
+                <div class="product-info">
+                    <span class="category">SANDWICH</span>
+                    <h3>Mexican Taco</h3>
+                    <p class="description">Taco sauce, ground beef, tomato, lettuce, jalapeño</p>
+                    <div class="product-meta">
+                        <span class="price">₩10,900</span>
+                        <span class="set-price">Set +₩4,600</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="menu-full" id="menu">
+        <div class="section-header">
+            <div class="section-title">
+                <h2>MENU</h2>
+                <p>Discover our diverse menu selection</p>
+            </div>
+        </div>
+
+        <div class="menu-categories">
+            <div class="menu-category">
+                <h3>SANDWICH</h3>
+                <div class="product-grid">
+                    <div class="product-item">
+                        <img src="images/menu/sandwiches/pesto-chicken.png" alt="Pesto Chicken">
+                        <div class="product-info">
+                            <span class="category">SANDWICH</span>
+                            <h3>Pesto Chicken</h3>
+                            <p class="description">Chicken breast, homemade pesto sauce, mozzarella cheese (41%), sauce, lettuce, onion, pepper</p>
+                            <div class="product-meta">
+                                <span class="price">₩10,400</span>
+                                <span class="set-price">Set +₩4,600</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <img src="images/menu/sandwiches/italian-combo.png" alt="Italian Combo">
+                        <div class="product-info">
+                            <span class="category">SANDWICH</span>
+                            <h3>Italian Combo</h3>
+                            <p class="description">Homemade ciabatta cheese, salami, olive, onion, pepperoni</p>
+                            <div class="product-meta">
+                                <span class="price">₩10,300</span>
+                                <span class="set-price">Set +₩4,600</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <img src="images/menu/sandwiches/pork-pastrami.png" alt="Pork Pastrami">
+                        <div class="product-info">
+                            <span class="category">SANDWICH</span>
+                            <h3>Pork Pastrami</h3>
+                            <p class="description">Pastrami, homemade mustard sauce, pickle, Swiss cheese, lettuce</p>
+                            <div class="product-meta">
+                                <span class="price">₩10,400</span>
+                                <span class="set-price">Set +₩4,600</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <img src="images/menu/sandwiches/mexican-taco.png" alt="Mexican Taco">
+                        <div class="product-info">
+                            <span class="category">SANDWICH</span>
+                            <h3>Mexican Taco</h3>
+                            <p class="description">Taco sauce, ground beef, tomato, lettuce, jalapeño</p>
+                            <div class="product-meta">
+                                <span class="price">₩10,900</span>
+                                <span class="set-price">Set +₩4,600</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <h3>PANINI</h3>
+                <div class="product-grid">
+                    <div class="product-item">
+                        <img src="images/menu/panini/pesto-chicken.png" alt="Pesto Chicken Panini">
+                        <div class="product-info">
+                            <span class="category">PANINI</span>
+                            <h3>Pesto Chicken</h3>
+                            <p class="description">Homemade pesto sauce, chicken breast, tomato, mozzarella cheese</p>
+                            <div class="product-meta">
+                                <span class="price">₩10,400</span>
+                                <span class="set-price">Set +₩4,600</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <img src="images/menu/panini/curry-chicken.png" alt="Curry Chicken Panini">
+                        <div class="product-info">
+                            <span class="category">PANINI</span>
+                            <h3>Curry Chicken</h3>
+                            <p class="description">Homemade curry sauce, chicken breast, tomato, onion, cheese</p>
+                            <div class="product-meta">
+                                <span class="price">₩10,400</span>
+                                <span class="set-price">Set +₩4,600</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <img src="images/menu/panini/mexican-taco.png" alt="Mexican Taco Panini">
+                        <div class="product-info">
+                            <span class="category">PANINI</span>
+                            <h3>Mexican Taco</h3>
+                            <p class="description">Taco sauce, ground beef, tomato, jalapeño, cheese</p>
+                            <div class="product-meta">
+                                <span class="price">₩10,900</span>
+                                <span class="set-price">Set +₩4,600</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <h3>SOUP & SALAD</h3>
+                <div class="product-grid soups-salads-grid">
+                    <div class="soups-section">
+                        <div class="product-item">
+                            <img src="images/menu/soups/mushroom.png" alt="Mushroom Soup">
+                            <div class="product-info">
+                                <span class="category">SOUP</span>
+                                <h3>Mushroom Soup</h3>
+                                <p class="description">Cream of mushroom soup with croutons</p>
+                                <div class="product-meta">
+                                    <span class="price">₩7,600</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <img src="images/menu/soups/tomato.png" alt="Tomato Soup">
+                            <div class="product-info">
+                                <span class="category">SOUP</span>
+                                <h3>Tomato Soup</h3>
+                                <p class="description">Italian style tomato soup with croutons</p>
+                                <div class="product-meta">
+                                    <span class="price">₩7,600</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="salads-section">
+                        <div class="product-item">
+                            <img src="images/menu/salads/caesar.png" alt="Caesar Salad">
+                            <div class="product-info">
+                                <span class="category">SALAD</span>
+                                <h3>Chicken Caesar Salad</h3>
+                                <p class="description">Romaine lettuce, chicken breast, parmesan cheese, croutons</p>
+                                <div class="product-meta">
+                                    <span class="price">₩9,700</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <img src="images/menu/salads/cheese-board.png" alt="Cheese Board">
+                            <div class="product-info">
+                                <span class="category">SALAD</span>
+                                <h3>Cheese Board</h3>
+                                <p class="description">Mozzarella, brie, cheddar, parmesan, nuts, honey</p>
+                                <div class="product-meta">
+                                    <span class="price">₩10,400</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <img src="images/menu/salads/ricotta.png" alt="Ricotta Salad">
+                            <div class="product-info">
+                                <span class="category">SALAD</span>
+                                <h3>Ricotta Salad</h3>
+                                <p class="description">Ricotta cheese, mixed greens, cherry tomatoes, balsamic dressing</p>
+                                <div class="product-meta">
+                                    <span class="price">₩9,400</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <h3>DRINK</h3>
+                <div class="drink-menu">
+                    <div class="menu-item">
+                        <span class="item-name">Pepsi Coke</span>
+                        <span class="price">₩2,500</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Pepsi Coke Zero</span>
+                        <span class="price">₩2,500</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Sprite</span>
+                        <span class="price">₩2,500</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Cranberry Juice</span>
+                        <span class="price">₩3,000</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Grapefruit Juice</span>
+                        <span class="price">₩3,000</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Mango Juice</span>
+                        <span class="price">₩3,000</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Americano</span>
+                        <span class="price">₩2,500</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Café Latte</span>
+                        <span class="price">₩3,000</span>
+                    </div>
+                </div>
+            </div>
+
+            <section class="menu-category">
+                <h2>DESSERT</h2>
+                <div class="dessert-menu">
+                    <div class="menu-item">
+                        <span class="item-name">FROMAQI Home Baked Cookies</span>
+                        <span class="price">₩3,000</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <section class="brand-story" id="brand-story">
+        <div class="story-content">
+            <h2>BRAND STORY</h2>
+            <p class="english-text">Taste Beyond Home Cooking</p>
+            <div class="story-detail">
+                <p class="story-paragraph">At FROMAQI, we believe there's no better food than home-cooked meals.<br>That's why we make all our sauces and menu items in-house.</p>
+                <div class="features">
+                    <span class="feature-item">Daily baked European-style ciabatta</span>
+                    <span class="feature-item">House-cured pastrami bacon</span>
+                    <span class="feature-item">Fresh homemade sauces</span>
+                </div>
+                <p class="story-paragraph">From basil pesto sauce to chicken caesar sauce, blue cheese sauce, wasabi sauce,<br>taco seasoning, and curry sauce - all our ingredients and sauces are<br>completely homemade, created by our multinational staff.</p>
+                <div class="location-highlight">
+                    <p class="years">10 Years</p>
+                    <p class="area">Seongbuk-gu Anam-dong's Representative Restaurant</p>
+                    <p class="reputation">Korea University Hotspot | Anam Date Spot | Anam Brunch Place</p>
+                </div>
+            </div>
+            <a href="#menu" class="learn-more">DISCOVER MORE <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <section class="locations" id="locations">
+        <div class="section-header">
+            <h2>LOCATIONS</h2>
+            <p>Find FROMAQI stores near you</p>
+        </div>
+        
+        <div class="stores-grid">
+            <div class="store-card">
+                <div class="store-info">
+                    <span class="store-badge">Main Store</span>
+                    <h3>Korea University</h3>
+                    <p class="address">1F FROMAQI, 13 Korea University 24ga-gil, Seongbuk-gu, Seoul</p>
+                    <div class="store-details">
+                        <p><i class="fas fa-clock"></i> Hours: 10:00 - 21:00</p>
+                        <p><i class="fas fa-phone"></i> 070-4038-8537</p>
+                        <p><i class="fas fa-subway"></i> 5 min walk from Anam Station Exit 2</p>
+                    </div>
+                    <a href="https://map.naver.com/v5/search/FROMAQI Korea University/place/1234567890?c=127.029461,37.587849,15,0,0,0,dh" target="_blank" class="direction-btn">Directions <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div id="map-korea" class="store-map"></div>
+            </div>
+
+            <div class="store-card">
+                <div class="store-info">
+                    <h3>Cheongju Sachang-dong</h3>
+                    <p class="address">1F FROMAQI, 696 1st Circuit Road, Seowon-gu, Cheongju-si, Chungcheongbuk-do</p>
+                    <div class="store-details">
+                        <p><i class="fas fa-clock"></i> Hours: 10:00 - 21:00</p>
+                        <p><i class="fas fa-phone"></i> 043-123-4567</p>
+                        <p><i class="fas fa-bus"></i> 3 min walk from Sachang-dong Bus Stop</p>
+                    </div>
+                    <a href="https://map.naver.com/v5/search/FROMAQI Cheongju Sachang-dong/place/1234567891?c=127.459528,36.633209,15,0,0,0,dh" target="_blank" class="direction-btn">Directions <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div id="map-cheongju" class="store-map"></div>
+            </div>
+
+            <div class="store-card">
+                <div class="store-info">
+                    <h3>Gangnam-gu Office</h3>
+                    <p class="address">B110, B111, B1F Brownstone Legend, 660 Seolleung-ro, Gangnam-gu, Seoul</p>
+                    <div class="store-details">
+                        <p><i class="fas fa-clock"></i> Hours: 10:00 - 21:00</p>
+                        <p><i class="fas fa-phone"></i> 02-987-6543</p>
+                        <p><i class="fas fa-subway"></i> 1 min walk from Gangnam-gu Office Station Exit 3</p>
+                    </div>
+                    <a href="https://map.naver.com/v5/search/FROMAQI Gangnam-gu Office/place/1234567892?c=127.041914,37.517397,15,0,0,0,dh" target="_blank" class="direction-btn">Directions <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div id="map-gangnam" class="store-map"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">FROMAQI</div>
+            <div class="footer-links">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+                <a href="#business">Business Information</a>
+            </div>
+            <div class="footer-info">
+                <p>SNCL International Co., Ltd. | CEO: San Lee | Business Registration: 108-81-99752</p>
+                <p>Address: 13 Korea University 24ga-gil, Seongbuk-gu, Seoul | Tel: 070-4038-8537</p>
+                <p>Online Business Registration: 2024-Seoul Seongbuk-0000</p>
+            </div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/fromaqi" class="social-link"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/fromai" class="social-link"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="copyright">© FROMAQI All Rights Reserved</p>
+        </div>
+    </footer>
+    <script src="language.js"></script>
+</body>
+</html> 
