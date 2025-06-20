@@ -14,24 +14,37 @@ let Notice, Admin;
 const connectDB = async () => {
     try {
         const mongoURI = process.env.MONGODB_URI;
-        console.log('MongoDB 연결 시도 중...');
+        console.log('=== MongoDB 연결 디버깅 시작 ===');
         console.log('MONGODB_URI 환경변수 존재:', !!mongoURI);
         
         if (!mongoURI) {
-            console.log('MONGODB_URI 환경변수가 설정되지 않았습니다.');
+            console.log('❌ MONGODB_URI 환경변수가 설정되지 않았습니다.');
+            console.log('Render 대시보드 → Environment → MONGODB_URI 설정 필요');
             return;
         }
 
+        // 연결 문자열 분석
+        console.log('연결 문자열 길이:', mongoURI.length);
+        console.log('연결 문자열 시작:', mongoURI.substring(0, 20) + '...');
+        
         // 연결 문자열에서 민감한 정보 숨기기
         const sanitizedURI = mongoURI.replace(/(mongodb\+srv:\/\/)([^:]+):([^@]+)@/, '$1***:***@');
         console.log('연결 문자열 (보안처리됨):', sanitizedURI);
 
-        await mongoose.connect(mongoURI, {
+        // 연결 옵션 설정
+        const connectionOptions = {
             useNewUrlParser: true,
             useUnifiedTopology: true,
-        });
+            serverSelectionTimeoutMS: 5000, // 5초 타임아웃
+            socketTimeoutMS: 45000, // 소켓 타임아웃
+            connectTimeoutMS: 10000, // 연결 타임아웃
+            maxPoolSize: 10, // 최대 연결 풀 크기
+        };
 
-        console.log('MongoDB에 성공적으로 연결되었습니다.');
+        console.log('MongoDB 연결 시도 중...');
+        await mongoose.connect(mongoURI, connectionOptions);
+
+        console.log('✅ MongoDB에 성공적으로 연결되었습니다.');
 
         // 스키마 정의
         const noticeSchema = new mongoose.Schema({
@@ -56,19 +69,44 @@ const connectDB = async () => {
                 username: 'admin',
                 password: 'admin123'
             });
-            console.log('초기 관리자 계정이 생성되었습니다. (admin/admin123)');
+            console.log('✅ 초기 관리자 계정이 생성되었습니다. (admin/admin123)');
+        } else {
+            console.log('✅ 기존 관리자 계정 확인됨');
         }
 
         isMongoConnected = true;
+        console.log('🎉 게시판 기능이 완전히 활성화되었습니다!');
+        
     } catch (error) {
-        console.error('MongoDB 연결 실패:', error.message);
+        console.error('❌ MongoDB 연결 실패');
+        console.error('오류 메시지:', error.message);
+        console.error('오류 코드:', error.code);
         console.error('전체 오류:', error);
-        console.log('=== MongoDB 연결 문제 해결 방법 ===');
-        console.log('1. 비밀번호에 특수문자가 있다면 URL 인코딩하세요:');
-        console.log('   @ → %40, : → %3A, / → %2F, ? → %3F, # → %23');
-        console.log('2. MongoDB Atlas에서 새 사용자 생성 (특수문자 없는 비밀번호)');
-        console.log('3. 네트워크 접근 설정에서 0.0.0.0/0 추가');
-        console.log('4. 연결 문자열 형식: mongodb+srv://username:password@cluster.mongodb.net/database-name?retryWrites=true&w=majority');
+        
+        console.log('\n=== MongoDB Atlas 문제 해결 체크리스트 ===');
+        
+        if (error.message.includes('ENOTFOUND')) {
+            console.log('🔍 문제: DNS 조회 실패 - 클러스터 주소가 잘못됨');
+            console.log('해결: MongoDB Atlas에서 정확한 연결 문자열 복사');
+        } else if (error.message.includes('bad auth')) {
+            console.log('🔍 문제: 인증 실패 - 사용자명/비밀번호 오류');
+            console.log('해결: Database Access에서 사용자 정보 확인');
+        } else if (error.message.includes('ECONNREFUSED')) {
+            console.log('🔍 문제: 연결 거부 - 네트워크 접근 설정 필요');
+            console.log('해결: Network Access에서 0.0.0.0/0 추가');
+        } else if (error.message.includes('timeout')) {
+            console.log('🔍 문제: 연결 타임아웃 - 네트워크 또는 방화벽 문제');
+            console.log('해결: Network Access 설정 확인');
+        }
+        
+        console.log('\n📋 수동 설정 가이드:');
+        console.log('1. MongoDB Atlas → Database → Connect');
+        console.log('2. Connect to your application 선택');
+        console.log('3. Driver: Node.js, Version: 5.0 or later');
+        console.log('4. 연결 문자열 복사 후 Render 환경변수에 설정');
+        console.log('5. Database Access에서 사용자 권한 확인');
+        console.log('6. Network Access에서 0.0.0.0/0 추가');
+        
         isMongoConnected = false;
     }
 };
