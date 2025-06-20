@@ -388,6 +388,37 @@
         </div>
     </section>
 
+    <section class="notice-board" id="notice-board">
+        <div class="section-header">
+            <h2>NOTICE BOARD</h2>
+            <p>Stay updated with FROMAQI news and announcements</p>
+        </div>
+        
+        <div class="notice-container">
+            <div class="notice-list" id="noticeList">
+                <!-- 공지사항이 여기에 동적으로 로드됩니다 -->
+            </div>
+            
+            <div class="admin-login" id="adminLoginForm" style="display: none;">
+                <h3>Admin Login</h3>
+                <form id="loginForm">
+                    <input type="text" id="username" placeholder="Username" required>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+            
+            <div class="notice-form" id="noticeForm" style="display: none;">
+                <h3>Write Notice</h3>
+                <form id="writeNoticeForm">
+                    <input type="text" id="noticeTitle" placeholder="Title" required>
+                    <textarea id="noticeContent" placeholder="Content" required></textarea>
+                    <button type="submit">Post Notice</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="footer-content">
             <div class="footer-logo">FROMAQI</div>
@@ -409,5 +440,6 @@
         </div>
     </footer>
     <script src="language.js"></script>
+    <script src="notice.js"></script>
 </body>
 </html> 

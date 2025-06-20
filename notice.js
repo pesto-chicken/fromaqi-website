@@ -1,6 +1,9 @@
 // 전역 변수
 let isAdmin = false;
 
+// API 기본 URL 설정 (환경변수 또는 기본값)
+const API_BASE_URL = import.meta.env?.VITE_API_BASE_URL || '';
+
 // DOM 요소
 const noticeList = document.getElementById('noticeList');
 const adminLoginForm = document.getElementById('adminLoginForm');
@@ -8,10 +11,15 @@ const noticeForm = document.getElementById('noticeForm');
 const loginForm = document.getElementById('loginForm');
 const writeNoticeForm = document.getElementById('writeNoticeForm');
 
+// API URL 생성 함수
+function getApiUrl(endpoint) {
+    return API_BASE_URL + endpoint;
+}
+
 // 관리자 상태 확인
 async function checkAdminStatus() {
     try {
-        const response = await fetch('/api/admin/status');
+        const response = await fetch(getApiUrl('/api/admin/status'));
         const data = await response.json();
         isAdmin = data.isAdmin;
         if (isAdmin) {
@@ -27,7 +35,7 @@ async function checkAdminStatus() {
 // 공지사항 목록 조회
 async function loadNotices() {
     try {
-        const response = await fetch('/api/notices');
+        const response = await fetch(getApiUrl('/api/notices'));
         const notices = await response.json();
         displayNotices(notices);
     } catch (error) {
@@ -61,7 +69,7 @@ async function handleLogin(event) {
     const password = document.getElementById('password').value;
 
     try {
-        const response = await fetch('/api/admin/login', {
+        const response = await fetch(getApiUrl('/api/admin/login'), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -90,7 +98,7 @@ async function handleWriteNotice(event) {
     const content = document.getElementById('noticeContent').value;
 
     try {
-        const response = await fetch('/api/notices', {
+        const response = await fetch(getApiUrl('/api/notices'), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -116,7 +124,7 @@ async function deleteNotice(id) {
     if (!confirm('정말로 이 공지사항을 삭제하시겠습니까?')) return;
 
     try {
-        const response = await fetch(`/api/notices/${id}`, {
+        const response = await fetch(getApiUrl(`/api/notices/${id}`), {
             method: 'DELETE'
         });
 
