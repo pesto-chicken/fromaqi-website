@@ -14,10 +14,17 @@ let Notice, Admin;
 const connectDB = async () => {
     try {
         const mongoURI = process.env.MONGODB_URI;
+        console.log('MongoDB 연결 시도 중...');
+        console.log('MONGODB_URI 환경변수 존재:', !!mongoURI);
+        
         if (!mongoURI) {
             console.log('MONGODB_URI 환경변수가 설정되지 않았습니다.');
             return;
         }
+
+        // 연결 문자열에서 민감한 정보 숨기기
+        const sanitizedURI = mongoURI.replace(/(mongodb\+srv:\/\/)([^:]+):([^@]+)@/, '$1***:***@');
+        console.log('연결 문자열 (보안처리됨):', sanitizedURI);
 
         await mongoose.connect(mongoURI, {
             useNewUrlParser: true,
@@ -55,6 +62,13 @@ const connectDB = async () => {
         isMongoConnected = true;
     } catch (error) {
         console.error('MongoDB 연결 실패:', error.message);
+        console.error('전체 오류:', error);
+        console.log('=== MongoDB 연결 문제 해결 방법 ===');
+        console.log('1. 비밀번호에 특수문자가 있다면 URL 인코딩하세요:');
+        console.log('   @ → %40, : → %3A, / → %2F, ? → %3F, # → %23');
+        console.log('2. MongoDB Atlas에서 새 사용자 생성 (특수문자 없는 비밀번호)');
+        console.log('3. 네트워크 접근 설정에서 0.0.0.0/0 추가');
+        console.log('4. 연결 문자열 형식: mongodb+srv://username:password@cluster.mongodb.net/database-name?retryWrites=true&w=majority');
         isMongoConnected = false;
     }
 };
