@@ -167,6 +167,7 @@ app.use(express.static(path.join(__dirname)));
 
 // 관리자 인증 미들웨어
 const requireAdmin = (req, res, next) => {
+    console.log('세션 상태(requireAdmin):', req.session);
     if (!req.session.isAdmin) {
         return res.status(401).json({ message: '관리자 권한이 필요합니다.' });
     }
@@ -182,6 +183,7 @@ app.post('/api/admin/login', async (req, res) => {
             const admin = await Admin.findOne({ username, password });
             if (admin) {
                 req.session.isAdmin = true;
+                console.log('로그인 성공, 세션:', req.session);
                 res.json({ success: true, message: '로그인 성공' });
             } else {
                 res.status(401).json({ success: false, message: '잘못된 로그인 정보입니다.' });
@@ -191,6 +193,7 @@ app.post('/api/admin/login', async (req, res) => {
             const admin = tempAdmins.find(a => a.username === username && a.password === password);
             if (admin) {
                 req.session.isAdmin = true;
+                console.log('로그인 성공(임시 저장소), 세션:', req.session);
                 res.json({ success: true, message: '로그인 성공 (임시 저장소)' });
             } else {
                 res.status(401).json({ success: false, message: '잘못된 로그인 정보입니다.' });
