@@ -7,7 +7,19 @@ const port = process.env.PORT || 3000;
 
 // CORS 설정 추가
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
+    // Vercel 도메인 명시적 허용
+    const allowedOrigins = [
+        'https://fromaqi-website.vercel.app',
+        'https://fromaqi-website-git-main-pesto-chicken.vercel.app',
+        'http://localhost:3000',
+        'http://localhost:3001'
+    ];
+    
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.header('Access-Control-Allow-Origin', origin);
+    }
+    
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     res.header('Access-Control-Allow-Credentials', 'true');
