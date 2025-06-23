@@ -155,7 +155,10 @@ app.use(session({
     secret: process.env.SESSION_SECRET || 'fromaqi-secret-key',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: process.env.NODE_ENV === 'production' }
+    cookie: {
+        secure: true,
+        sameSite: 'none'
+    }
 }));
 
 // 미들웨어 설정

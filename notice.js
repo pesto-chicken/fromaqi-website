@@ -19,7 +19,9 @@ function getApiUrl(endpoint) {
 // 관리자 상태 확인
 async function checkAdminStatus() {
     try {
-        const response = await fetch(getApiUrl('/api/admin/status'));
+        const response = await fetch(getApiUrl('/api/admin/status'), {
+            credentials: 'include'
+        });
         const data = await response.json();
         isAdmin = data.isAdmin;
         if (isAdmin) {
@@ -74,7 +76,8 @@ async function handleLogin(event) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({ username, password }),
+            credentials: 'include'
         });
 
         const data = await response.json();
@@ -103,7 +106,8 @@ async function handleWriteNotice(event) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ title, content })
+            body: JSON.stringify({ title, content }),
+            credentials: 'include'
         });
 
         if (response.ok) {
@@ -125,7 +129,8 @@ async function deleteNotice(id) {
 
     try {
         const response = await fetch(getApiUrl(`/api/notices/${id}`), {
-            method: 'DELETE'
+            method: 'DELETE',
+            credentials: 'include'
         });
 
         if (response.ok) {
