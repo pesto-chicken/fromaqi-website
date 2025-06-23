@@ -1,10 +1,29 @@
 ﻿const express = require('express');
 const path = require('path');
 const session = require('express-session');
-const mongoose = require('mongoose');
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+// CORS 설정 추가
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    
+    if (req.method === 'OPTIONS') {
+        res.sendStatus(200);
+    } else {
+        next();
+    }
+});
+
+// 메모리 기반 임시 저장소 (MongoDB 연결 실패 시 사용)
+let tempNotices = [];
+let tempAdmins = [
+    { username: 'admin', password: 'admin123' }
+];
 
 // MongoDB 연결
 let isMongoConnected = false;
@@ -19,9 +38,13 @@ const connectDB = async () => {
         
         if (!mongoURI) {
             console.log('❌ MONGODB_URI 환경변수가 설정되지 않았습니다.');
-            console.log('Render 대시보드 → Environment → MONGODB_URI 설정 필요');
+            console.log('로컬 환경에서는 메모리 기반 임시 저장소를 사용합니다.');
+            console.log('배포 환경에서는 Render 대시보드 → Environment → MONGODB_URI 설정 필요');
             return;
         }
+
+        // MongoDB 모듈 동적 로드
+        const mongoose = require('mongoose');
 
         // 연결 문자열 분석
         console.log('연결 문자열 길이:', mongoURI.length);
@@ -108,6 +131,7 @@ const connectDB = async () => {
         console.log('6. Network Access에서 0.0.0.0/0 추가');
         
         isMongoConnected = false;
+        console.log('💡 로컬 환경에서는 메모리 기반 임시 저장소를 사용합니다.');
     }
 };
 
@@ -137,18 +161,25 @@ const requireAdmin = (req, res, next) => {
 // 관리자 로그인 API
 app.post('/api/admin/login', async (req, res) => {
     try {
-        if (!isMongoConnected) {
-            return res.status(503).json({ success: false, message: '데이터베이스가 연결되지 않았습니다.' });
-        }
-
         const { username, password } = req.body;
-        const admin = await Admin.findOne({ username, password });
-
-        if (admin) {
-            req.session.isAdmin = true;
-            res.json({ success: true, message: '로그인 성공' });
+        
+        if (isMongoConnected) {
+            const admin = await Admin.findOne({ username, password });
+            if (admin) {
+                req.session.isAdmin = true;
+                res.json({ success: true, message: '로그인 성공' });
+            } else {
+                res.status(401).json({ success: false, message: '잘못된 로그인 정보입니다.' });
+            }
         } else {
-            res.status(401).json({ success: false, message: '잘못된 로그인 정보입니다.' });
+            // 메모리 기반 인증
+            const admin = tempAdmins.find(a => a.username === username && a.password === password);
+            if (admin) {
+                req.session.isAdmin = true;
+                res.json({ success: true, message: '로그인 성공 (임시 저장소)' });
+            } else {
+                res.status(401).json({ success: false, message: '잘못된 로그인 정보입니다.' });
+            }
         }
     } catch (error) {
         console.error('로그인 오류:', error);
@@ -165,12 +196,13 @@ app.post('/api/admin/logout', (req, res) => {
 // 공지사항 목록 조회 API
 app.get('/api/notices', async (req, res) => {
     try {
-        if (!isMongoConnected) {
-            return res.json([]);
+        if (isMongoConnected) {
+            const notices = await Notice.find().sort({ createdAt: -1 });
+            res.json(notices);
+        } else {
+            // 메모리 기반 조회
+            res.json(tempNotices.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
         }
-
-        const notices = await Notice.find().sort({ createdAt: -1 });
-        res.json(notices);
     } catch (error) {
         console.error('공지사항 조회 오류:', error);
         res.status(500).json({ message: '서버 오류가 발생했습니다.' });
@@ -180,18 +212,27 @@ app.get('/api/notices', async (req, res) => {
 // 공지사항 작성 API (관리자만)
 app.post('/api/notices', requireAdmin, async (req, res) => {
     try {
-        if (!isMongoConnected) {
-            return res.status(503).json({ message: '데이터베이스가 연결되지 않았습니다.' });
-        }
-
         const { title, content } = req.body;
-        const notice = await Notice.create({
-            title,
-            content,
-            author: '관리자'
-        });
-
-        res.status(201).json(notice);
+        
+        if (isMongoConnected) {
+            const notice = await Notice.create({
+                title,
+                content,
+                author: '관리자'
+            });
+            res.status(201).json(notice);
+        } else {
+            // 메모리 기반 저장
+            const notice = {
+                _id: Date.now().toString(),
+                title,
+                content,
+                author: '관리자',
+                createdAt: new Date()
+            };
+            tempNotices.push(notice);
+            res.status(201).json(notice);
+        }
     } catch (error) {
         console.error('공지사항 작성 오류:', error);
         res.status(500).json({ message: '서버 오류가 발생했습니다.' });
@@ -201,12 +242,15 @@ app.post('/api/notices', requireAdmin, async (req, res) => {
 // 공지사항 삭제 API (관리자만)
 app.delete('/api/notices/:id', requireAdmin, async (req, res) => {
     try {
-        if (!isMongoConnected) {
-            return res.status(503).json({ message: '데이터베이스가 연결되지 않았습니다.' });
-        }
-
         const { id } = req.params;
-        await Notice.findByIdAndDelete(id);
+        
+        if (isMongoConnected) {
+            await Notice.findByIdAndDelete(id);
+        } else {
+            // 메모리 기반 삭제
+            tempNotices = tempNotices.filter(notice => notice._id !== id);
+        }
+        
         res.json({ message: '공지사항이 삭제되었습니다.' });
     } catch (error) {
         console.error('공지사항 삭제 오류:', error);
@@ -223,8 +267,9 @@ app.get('/api/admin/status', (req, res) => {
 app.listen(port, () => {
     console.log(`서버가 http://localhost:${port} 에서 실행 중입니다.`);
     if (isMongoConnected) {
-        console.log('게시판 기능이 활성화되어 있습니다.');
+        console.log('게시판 기능이 활성화되어 있습니다. (MongoDB 연결됨)');
     } else {
-        console.log('게시판 기능이 비활성화되어 있습니다. (MongoDB 연결 실패)');
+        console.log('게시판 기능이 활성화되어 있습니다. (메모리 기반 임시 저장소 사용)');
+        console.log('관리자 계정: admin / admin123');
     }
 });

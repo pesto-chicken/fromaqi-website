@@ -1,8 +1,8 @@
 // 전역 변수
 let isAdmin = false;
 
-// API 기본 URL 설정 (환경변수 또는 기본값)
-const API_BASE_URL = import.meta.env?.VITE_API_BASE_URL || '';
+// API 기본 URL 설정 (window 전역 변수 사용)
+const API_BASE_URL = window.API_BASE_URL || '';
 
 // DOM 요소
 const noticeList = document.getElementById('noticeList');
