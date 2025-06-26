@@ -169,24 +169,43 @@ function authenticateJWT(req, res, next) {
 
 // 관리자 로그인 API (JWT 토큰 발급)
 app.post('/api/admin/login', async (req, res) => {
+    console.log('=== 관리자 로그인 요청 ===');
+    console.log('요청 본문:', req.body);
+    console.log('요청 헤더:', req.headers);
+    
     try {
         const { username, password } = req.body;
+        console.log('로그인 시도:', { username, password: password ? '***' : 'undefined' });
+        
         let isValid = false;
+        let adminData = null;
+        
         if (isMongoConnected) {
-            const admin = await Admin.findOne({ username, password });
-            isValid = !!admin;
+            console.log('MongoDB 연결됨 - MongoDB에서 관리자 확인');
+            adminData = await Admin.findOne({ username, password });
+            isValid = !!adminData;
+            console.log('MongoDB 관리자 조회 결과:', adminData ? '찾음' : '없음');
         } else {
-            const admin = tempAdmins.find(a => a.username === username && a.password === password);
-            isValid = !!admin;
+            console.log('MongoDB 연결 안됨 - 메모리 기반 임시 저장소 사용');
+            adminData = tempAdmins.find(a => a.username === username && a.password === password);
+            isValid = !!adminData;
+            console.log('메모리 기반 관리자 조회 결과:', adminData ? '찾음' : '없음');
+            console.log('임시 관리자 목록:', tempAdmins);
         }
+        
+        console.log('로그인 유효성 검사 결과:', isValid);
+        
         if (isValid) {
             const token = jwt.sign({ username, isAdmin: true }, process.env.JWT_SECRET || 'fromaqi-jwt-secret-key', { expiresIn: '2h' });
+            console.log('JWT 토큰 생성됨');
+            console.log('응답 데이터:', { success: true, token: token.substring(0, 20) + '...' });
             res.json({ success: true, token });
         } else {
+            console.log('로그인 실패 - 잘못된 정보');
             res.status(401).json({ success: false, message: '잘못된 로그인 정보입니다.' });
         }
     } catch (error) {
-        console.error('로그인 오류:', error);
+        console.error('로그인 처리 중 오류:', error);
         res.status(500).json({ success: false, message: '서버 오류가 발생했습니다.' });
     }
 });
