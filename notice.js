@@ -16,21 +16,30 @@ function getApiUrl(endpoint) {
     return API_BASE_URL + endpoint;
 }
 
-// 관리자 상태 확인
-async function checkAdminStatus() {
+// JWT 토큰 가져오기
+function getToken() {
+    return localStorage.getItem('jwtToken');
+}
+
+// JWT 토큰에서 isAdmin 추출(간단 파싱)
+function isAdminFromToken() {
+    const token = getToken();
+    if (!token) return false;
     try {
-        const response = await fetch(getApiUrl('/api/admin/status'), {
-            credentials: 'include'
-        });
-        const data = await response.json();
-        isAdmin = data.isAdmin;
-        if (isAdmin) {
-            showNoticeForm();
-        } else {
-            showLoginForm();
-        }
-    } catch (error) {
-        console.error('관리자 상태 확인 중 오류 발생:', error);
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        return payload.isAdmin;
+    } catch (e) {
+        return false;
+    }
+}
+
+// 관리자 상태 확인 (JWT 토큰 기반)
+function checkAdminStatus() {
+    isAdmin = isAdminFromToken();
+    if (isAdmin) {
+        showNoticeForm();
+    } else {
+        showLoginForm();
     }
 }
 
@@ -69,19 +78,17 @@ async function handleLogin(event) {
     event.preventDefault();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-
     try {
         const response = await fetch(getApiUrl('/api/admin/login'), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username, password }),
-            credentials: 'include'
+            body: JSON.stringify({ username, password })
         });
-
         const data = await response.json();
-        if (data.success) {
+        if (data.success && data.token) {
+            localStorage.setItem('jwtToken', data.token);
             isAdmin = true;
             showNoticeForm();
             loadNotices();
@@ -99,17 +106,15 @@ async function handleWriteNotice(event) {
     event.preventDefault();
     const title = document.getElementById('noticeTitle').value;
     const content = document.getElementById('noticeContent').value;
-
     try {
         const response = await fetch(getApiUrl('/api/notices'), {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
             },
-            body: JSON.stringify({ title, content }),
-            credentials: 'include'
+            body: JSON.stringify({ title, content })
         });
-
         if (response.ok) {
             document.getElementById('noticeTitle').value = '';
             document.getElementById('noticeContent').value = '';
@@ -126,13 +131,13 @@ async function handleWriteNotice(event) {
 // 공지사항 삭제
 async function deleteNotice(id) {
     if (!confirm('정말로 이 공지사항을 삭제하시겠습니까?')) return;
-
     try {
         const response = await fetch(getApiUrl(`/api/notices/${id}`), {
             method: 'DELETE',
-            credentials: 'include'
+            headers: {
+                'Authorization': `Bearer ${getToken()}`
+            }
         });
-
         if (response.ok) {
             loadNotices();
         } else {
@@ -153,6 +158,13 @@ function showLoginForm() {
 function showNoticeForm() {
     adminLoginForm.style.display = 'none';
     noticeForm.style.display = 'block';
+}
+
+// 로그아웃 함수 추가
+function logout() {
+    localStorage.removeItem('jwtToken');
+    isAdmin = false;
+    showLoginForm();
 }
 
 // 이벤트 리스너 등록

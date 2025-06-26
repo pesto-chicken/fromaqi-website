@@ -11,15 +11,20 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.18.2",
-    "mongoose": "^7.5.0",
     "express-session": "^1.17.3",
-    "bcryptjs": "^2.4.3"
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.5.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
   },
-  "keywords": ["sandwich", "restaurant", "website"],
+  "keywords": [
+    "sandwich",
+    "restaurant",
+    "website"
+  ],
   "author": "FROMAQI",
   "license": "MIT"
 }

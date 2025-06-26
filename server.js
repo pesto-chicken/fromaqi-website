@@ -1,6 +1,6 @@
 ﻿const express = require('express');
 const path = require('path');
-const session = require('express-session');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -9,6 +9,8 @@ const port = process.env.PORT || 3000;
 app.use((req, res, next) => {
     // Vercel 도메인 명시적 허용
     const allowedOrigins = [
+        'https://fromaqi.com',
+        'https://www.fromaqi.com',
         'https://fromaqi-website.vercel.app',
         'https://fromaqi-website-git-main-pesto-chicken.vercel.app',
         'http://localhost:3000',
@@ -150,54 +152,38 @@ const connectDB = async () => {
 // MongoDB 연결 시도
 connectDB();
 
-// 세션 설정
-app.use(session({
-    secret: process.env.SESSION_SECRET || 'fromaqi-secret-key',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        secure: true,
-        sameSite: 'none'
+// JWT 인증 미들웨어
+function authenticateJWT(req, res, next) {
+    const authHeader = req.headers.authorization;
+    if (authHeader) {
+        const token = authHeader.split(' ')[1];
+        jwt.verify(token, process.env.JWT_SECRET || 'fromaqi-jwt-secret-key', (err, user) => {
+            if (err) return res.sendStatus(403);
+            req.user = user;
+            next();
+        });
+    } else {
+        res.sendStatus(401);
     }
-}));
+}
 
-// 미들웨어 설정
-app.use(express.json());
-app.use(express.static(path.join(__dirname)));
-
-// 관리자 인증 미들웨어
-const requireAdmin = (req, res, next) => {
-    console.log('세션 상태(requireAdmin):', req.session);
-    if (!req.session.isAdmin) {
-        return res.status(401).json({ message: '관리자 권한이 필요합니다.' });
-    }
-    next();
-};
-
-// 관리자 로그인 API
+// 관리자 로그인 API (JWT 토큰 발급)
 app.post('/api/admin/login', async (req, res) => {
     try {
         const { username, password } = req.body;
-        
+        let isValid = false;
         if (isMongoConnected) {
             const admin = await Admin.findOne({ username, password });
-            if (admin) {
-                req.session.isAdmin = true;
-                console.log('로그인 성공, 세션:', req.session);
-                res.json({ success: true, message: '로그인 성공' });
-            } else {
-                res.status(401).json({ success: false, message: '잘못된 로그인 정보입니다.' });
-            }
+            isValid = !!admin;
         } else {
-            // 메모리 기반 인증
             const admin = tempAdmins.find(a => a.username === username && a.password === password);
-            if (admin) {
-                req.session.isAdmin = true;
-                console.log('로그인 성공(임시 저장소), 세션:', req.session);
-                res.json({ success: true, message: '로그인 성공 (임시 저장소)' });
-            } else {
-                res.status(401).json({ success: false, message: '잘못된 로그인 정보입니다.' });
-            }
+            isValid = !!admin;
+        }
+        if (isValid) {
+            const token = jwt.sign({ username, isAdmin: true }, process.env.JWT_SECRET || 'fromaqi-jwt-secret-key', { expiresIn: '2h' });
+            res.json({ success: true, token });
+        } else {
+            res.status(401).json({ success: false, message: '잘못된 로그인 정보입니다.' });
         }
     } catch (error) {
         console.error('로그인 오류:', error);
@@ -205,9 +191,8 @@ app.post('/api/admin/login', async (req, res) => {
     }
 });
 
-// 관리자 로그아웃 API
+// 관리자 로그아웃 API (JWT 방식에서는 세션 삭제 불필요)
 app.post('/api/admin/logout', (req, res) => {
-    req.session.destroy();
     res.json({ success: true });
 });
 
@@ -227,11 +212,11 @@ app.get('/api/notices', async (req, res) => {
     }
 });
 
-// 공지사항 작성 API (관리자만)
-app.post('/api/notices', requireAdmin, async (req, res) => {
+// 공지사항 작성 API (JWT 인증 필요)
+app.post('/api/notices', authenticateJWT, async (req, res) => {
+    if (!req.user.isAdmin) return res.sendStatus(403);
     try {
         const { title, content } = req.body;
-        
         if (isMongoConnected) {
             const notice = await Notice.create({
                 title,
@@ -240,7 +225,6 @@ app.post('/api/notices', requireAdmin, async (req, res) => {
             });
             res.status(201).json(notice);
         } else {
-            // 메모리 기반 저장
             const notice = {
                 _id: Date.now().toString(),
                 title,
@@ -257,18 +241,16 @@ app.post('/api/notices', requireAdmin, async (req, res) => {
     }
 });
 
-// 공지사항 삭제 API (관리자만)
-app.delete('/api/notices/:id', requireAdmin, async (req, res) => {
+// 공지사항 삭제 API (JWT 인증 필요)
+app.delete('/api/notices/:id', authenticateJWT, async (req, res) => {
+    if (!req.user.isAdmin) return res.sendStatus(403);
     try {
         const { id } = req.params;
-        
         if (isMongoConnected) {
             await Notice.findByIdAndDelete(id);
         } else {
-            // 메모리 기반 삭제
             tempNotices = tempNotices.filter(notice => notice._id !== id);
         }
-        
         res.json({ message: '공지사항이 삭제되었습니다.' });
     } catch (error) {
         console.error('공지사항 삭제 오류:', error);
@@ -276,9 +258,9 @@ app.delete('/api/notices/:id', requireAdmin, async (req, res) => {
     }
 });
 
-// 관리자 상태 확인 API
-app.get('/api/admin/status', (req, res) => {
-    res.json({ isAdmin: !!req.session.isAdmin });
+// 관리자 상태 확인 API (JWT 토큰 필요)
+app.get('/api/admin/status', authenticateJWT, (req, res) => {
+    res.json({ isAdmin: !!req.user.isAdmin });
 });
 
 // 서버 시작
