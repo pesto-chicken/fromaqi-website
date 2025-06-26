@@ -5,6 +5,10 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const port = process.env.PORT || 3000;
 
+// JSON 파싱 미들웨어 추가
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // CORS 설정 추가
 app.use((req, res, next) => {
     // Vercel 도메인 명시적 허용
@@ -280,6 +284,19 @@ app.delete('/api/notices/:id', authenticateJWT, async (req, res) => {
 // 관리자 상태 확인 API (JWT 토큰 필요)
 app.get('/api/admin/status', authenticateJWT, (req, res) => {
     res.json({ isAdmin: !!req.user.isAdmin });
+});
+
+// 정적 파일 서빙
+app.use(express.static(path.join(__dirname)));
+
+// 메인 페이지 라우트
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// 메뉴 페이지 라우트
+app.get('/menu', (req, res) => {
+    res.sendFile(path.join(__dirname, 'menu.html'));
 });
 
 // 서버 시작
