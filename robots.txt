@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.fromaqi.com/sitemap.xml
+
+# 네이버 검색엔진 최적화
+User-agent: Yeti
+Allow: /
+Crawl-delay: 1 
