@@ -1005,28 +1005,33 @@ footer {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     overflow: hidden;
+    display: block; /* JavaScript 없이도 기본적으로 표시 */
+}
+
+/* JavaScript가 있을 때만 카테고리별로 숨김 처리 */
+.js-enabled .menu-slide[data-category="panini"] {
     display: none;
 }
 
-/* 모든 카테고리 메뉴는 JavaScript에 의해 제어되도록 기본값 설정 */
-.menu-slide[data-category="panini"] {
+.js-enabled .menu-slide[data-category="soup"] {
     display: none;
 }
 
-.menu-slide[data-category="soup"] {
+.js-enabled .menu-slide[data-category="salad"] {
     display: none;
 }
 
-.menu-slide[data-category="salad"] {
+.js-enabled .menu-slide[data-category="drink"] {
     display: none;
 }
 
-.menu-slide[data-category="drink"] {
+.js-enabled .menu-slide[data-category="dessert"] {
     display: none;
 }
 
-.menu-slide[data-category="dessert"] {
-    display: none;
+/* JavaScript가 있을 때만 샌드위치 카테고리 표시 */
+.js-enabled .menu-slide[data-category="sandwich"] {
+    display: block;
 }
 
 .menu-slide img {
