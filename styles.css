@@ -994,6 +994,24 @@ footer {
     gap: 20px;
     padding: 0;
     margin: 0;
+    /* CSS만으로 터치 스와이프 구현 */
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* 스크롤바 숨기기 */
+.menu-slider::-webkit-scrollbar {
+    display: none;
+}
+
+/* 각 슬라이드를 스냅 포인트로 설정 */
+.menu-slide {
+    scroll-snap-align: start;
+    flex-shrink: 0;
 }
 
 .menu-slide {
@@ -1193,6 +1211,9 @@ footer {
     .menu-slider-container {
         padding: 0 20px;
         position: relative;
+        /* 모바일에서 전체 화면 스크롤 방지 */
+        touch-action: pan-y;
+        overflow: hidden;
     }
 
     .menu-slider-wrapper {
@@ -1201,11 +1222,30 @@ footer {
         cursor: grab;
         user-select: none;
         -webkit-user-select: none;
+        /* 수평 스와이프만 허용, 수직 스크롤은 방지 */
         touch-action: pan-x;
+        /* 스와이프 영역 확대 */
+        padding: 20px 0;
+        /* CSS 스크롤 스냅 활성화 */
+        scroll-snap-type: x mandatory;
     }
     
     .menu-slider-wrapper:active {
         cursor: grabbing;
+    }
+    
+    /* 슬라이더 자체에도 터치 액션 설정 */
+    .menu-slider {
+        touch-action: pan-x;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+    
+    /* 개별 슬라이드에도 터치 액션 설정 */
+    .menu-slide {
+        touch-action: pan-x;
+        user-select: none;
+        -webkit-user-select: none;
     }
     
     .menu-slide {
