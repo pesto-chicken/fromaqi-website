@@ -291,18 +291,39 @@ async function deleteNotice(id) {
 function showLoginForm() {
     adminLoginForm.style.display = 'block';
     noticeForm.style.display = 'none';
+    // 로그인 버튼 숨기기
+    const adminLoginSection = document.getElementById('adminLoginSection');
+    if (adminLoginSection) {
+        adminLoginSection.style.display = 'none';
+    }
 }
 
 function showNoticeForm() {
     adminLoginForm.style.display = 'none';
     noticeForm.style.display = 'block';
+    // 로그인 버튼 숨기기
+    const adminLoginSection = document.getElementById('adminLoginSection');
+    if (adminLoginSection) {
+        adminLoginSection.style.display = 'none';
+    }
 }
 
 // 로그아웃 함수 추가
 function logout() {
     localStorage.removeItem('jwtToken');
     isAdmin = false;
-    showLoginForm();
+    
+    // 로그인 폼 숨기고 로그인 버튼 표시
+    adminLoginForm.style.display = 'none';
+    noticeForm.style.display = 'none';
+    
+    const adminLoginSection = document.getElementById('adminLoginSection');
+    if (adminLoginSection) {
+        adminLoginSection.style.display = 'block';
+    }
+    
+    // 공지사항 다시 로드
+    loadNotices();
 }
 
 // 이벤트 리스너 등록

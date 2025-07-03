@@ -420,6 +420,11 @@
                 <!-- 공지사항 목록이 여기에 동적으로 추가됩니다 -->
             </div>
             
+            <!-- 관리자 로그인 버튼 추가 -->
+            <div class="admin-login-section" id="adminLoginSection">
+                <button class="admin-login-btn" onclick="showLoginForm()">관리자 로그인</button>
+            </div>
+            
             <div class="admin-login-form" id="adminLoginForm" style="display: none;">
                 <h3>관리자 로그인</h3>
                 <form id="loginForm">
@@ -434,7 +439,10 @@
                 <form id="writeNoticeForm">
                     <input type="text" id="noticeTitle" placeholder="제목" required>
                     <textarea id="noticeContent" placeholder="내용" required></textarea>
-                    <button type="submit">작성하기</button>
+                    <div class="form-actions">
+                        <button type="submit">작성하기</button>
+                        <button type="button" onclick="logout()" class="logout-btn">로그아웃</button>
+                    </div>
                 </form>
             </div>
         </div>

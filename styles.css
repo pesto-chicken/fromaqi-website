@@ -1506,6 +1506,27 @@ footer {
     line-height: 1.6;
 }
 
+.admin-login-section {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 1rem;
+}
+
+.admin-login-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.admin-login-btn:hover {
+    background: #c0392b;
+}
+
 .admin-login-form,
 .notice-form {
     background: #f8f9fa;
@@ -1557,6 +1578,28 @@ footer {
 .admin-login-form button:hover,
 .notice-form button:hover {
     background: var(--accent-color);
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.logout-btn {
+    background: #6c757d !important;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: #5a6268 !important;
 }
 
 .notice-actions {
