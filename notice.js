@@ -57,7 +57,16 @@ function checkAdminStatus() {
     } else if (isAdmin) {
         showNoticeForm();
     } else {
-        showLoginForm();
+        // 관리자가 아닌 경우 로그인 버튼만 보이도록
+        const adminLoginSection = document.getElementById('adminLoginSection');
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        const noticeForm = document.getElementById('noticeForm');
+        
+        if (adminLoginSection) adminLoginSection.style.display = 'block';
+        if (adminLoginForm) adminLoginForm.style.display = 'none';
+        if (noticeForm) noticeForm.style.display = 'none';
+        
+        console.log('로그인 버튼 표시됨 (관리자 아님)');
     }
 }
 
@@ -332,4 +341,25 @@ writeNoticeForm.addEventListener('submit', handleWriteNotice);
 
 // 초기 로드
 checkAdminStatus();
-loadNotices(); 
+loadNotices();
+
+// 디버깅: 로그인 버튼이 보이는지 확인
+console.log('=== Notice.js 초기화 완료 ===');
+console.log('adminLoginSection 요소:', document.getElementById('adminLoginSection'));
+console.log('adminLoginForm 요소:', document.getElementById('adminLoginForm'));
+console.log('noticeForm 요소:', document.getElementById('noticeForm'));
+
+// 디버깅 메시지 업데이트
+const debugMessage = document.getElementById('debug-message');
+if (debugMessage) {
+    debugMessage.innerHTML = 'JavaScript 정상 동작 중 - ' + new Date().toLocaleTimeString();
+    debugMessage.style.background = '#d4edda';
+    debugMessage.style.color = '#155724';
+}
+
+// 로그인 버튼이 보이도록 강제 설정
+const adminLoginSection = document.getElementById('adminLoginSection');
+if (adminLoginSection) {
+    adminLoginSection.style.display = 'block';
+    console.log('로그인 버튼 표시됨');
+} 

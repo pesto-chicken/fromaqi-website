@@ -1510,6 +1510,7 @@ footer {
     text-align: center;
     margin: 2rem 0;
     padding: 1rem;
+    display: block; /* 기본적으로 보이게 설정 */
 }
 
 .admin-login-btn {
