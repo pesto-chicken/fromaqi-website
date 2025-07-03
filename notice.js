@@ -48,7 +48,13 @@ function isAdminFromToken() {
 function checkAdminStatus() {
     isAdmin = isAdminFromToken();
     console.log('관리자 상태:', isAdmin);
-    if (isAdmin) {
+    
+    // 로컬 환경에서는 관리자 권한 부여
+    if (window.location.hostname === 'localhost' || window.location.hostname.includes('192.168.')) {
+        console.log('로컬 환경 - 관리자 권한 부여');
+        isAdmin = true;
+        showNoticeForm();
+    } else if (isAdmin) {
         showNoticeForm();
     } else {
         showLoginForm();
@@ -59,6 +65,41 @@ function checkAdminStatus() {
 async function loadNotices() {
     try {
         console.log('공지사항 로드 시작...');
+        
+        // 로컬 테스트를 위해 API 호출 대신 더미 데이터 사용
+        if (window.location.hostname === 'localhost' || window.location.hostname.includes('192.168.')) {
+            console.log('로컬 환경 감지 - 더미 데이터 사용');
+            
+            // 기본 더미 데이터
+            const defaultNotices = [
+                {
+                    _id: '1',
+                    title: '프로마치 오픈 안내',
+                    content: '프로마치 강남역점이 오픈했습니다. 신선한 재료로 만드는 프리미엄 샌드위치를 맛보세요!',
+                    author: '관리자',
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    _id: '2',
+                    title: '새로운 메뉴 출시',
+                    content: '노르웨이 연어 샌드위치와 커리 치킨 샌드위치가 새롭게 출시되었습니다.',
+                    author: '관리자',
+                    createdAt: new Date(Date.now() - 86400000).toISOString()
+                }
+            ];
+            
+            // 로컬 스토리지에서 추가된 공지사항 가져오기
+            const localNotices = JSON.parse(localStorage.getItem('localNotices') || '[]');
+            
+            // 로컬 공지사항을 앞에 추가
+            const allNotices = [...localNotices, ...defaultNotices];
+            
+            console.log('로컬 공지사항:', localNotices);
+            console.log('전체 공지사항:', allNotices);
+            displayNotices(allNotices);
+            return;
+        }
+        
         const response = await fetch(getApiUrl('/api/notices'));
         console.log('공지사항 응답 상태:', response.status);
         
@@ -101,14 +142,22 @@ async function handleLogin(event) {
     const password = document.getElementById('password').value;
     
     console.log('로그인 시도:', { username, password: '***' });
+    console.log('현재 도메인:', window.location.hostname);
+    console.log('API_BASE_URL:', window.API_BASE_URL);
     
     try {
-        const response = await fetch(getApiUrl('/api/admin/login'), {
+        const apiUrl = getApiUrl('/api/admin/login');
+        console.log('로그인 API URL:', apiUrl);
+        
+        const requestBody = JSON.stringify({ username, password });
+        console.log('로그인 요청 본문:', { username, password: '***' });
+        
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username, password })
+            body: requestBody
         });
         
         console.log('로그인 응답 상태:', response.status);
@@ -130,6 +179,7 @@ async function handleLogin(event) {
         }
     } catch (error) {
         console.error('로그인 중 오류 발생:', error);
+        console.error('오류 상세:', error.message);
         alert('로그인 중 오류가 발생했습니다: ' + error.message);
     }
 }
@@ -139,25 +189,80 @@ async function handleWriteNotice(event) {
     event.preventDefault();
     const title = document.getElementById('noticeTitle').value;
     const content = document.getElementById('noticeContent').value;
+    
+    console.log('공지사항 작성 시도:', { title, content });
+    console.log('현재 도메인:', window.location.hostname);
+    console.log('API_BASE_URL:', window.API_BASE_URL);
+    console.log('관리자 상태:', isAdmin);
+    console.log('JWT 토큰:', getToken() ? '존재함' : '없음');
+    
     try {
-        const response = await fetch(getApiUrl('/api/notices'), {
+        // 로컬 테스트를 위해 더미 데이터로 처리
+        if (window.location.hostname === 'localhost' || window.location.hostname.includes('192.168.')) {
+            console.log('로컬 환경 - 더미 데이터로 공지사항 추가');
+            
+            // 로컬 스토리지에서 기존 공지사항 가져오기
+            let localNotices = JSON.parse(localStorage.getItem('localNotices') || '[]');
+            
+            // 새 공지사항 추가
+            const newNotice = {
+                _id: Date.now().toString(),
+                title: title,
+                content: content,
+                author: '관리자',
+                createdAt: new Date().toISOString()
+            };
+            
+            localNotices.unshift(newNotice); // 최신 글이 위에 오도록
+            localStorage.setItem('localNotices', JSON.stringify(localNotices));
+            
+            // 폼 초기화
+            document.getElementById('noticeTitle').value = '';
+            document.getElementById('noticeContent').value = '';
+            
+            // 공지사항 다시 로드
+            loadNotices();
+            alert('공지사항이 작성되었습니다!');
+            return;
+        }
+        
+        // 실제 API 호출
+        console.log('실제 API 호출 시도...');
+        const apiUrl = getApiUrl('/api/notices');
+        console.log('API URL:', apiUrl);
+        
+        const requestBody = JSON.stringify({ title, content });
+        console.log('요청 본문:', requestBody);
+        
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${getToken()}`
             },
-            body: JSON.stringify({ title, content })
+            body: requestBody
         });
+        
+        console.log('응답 상태:', response.status);
+        console.log('응답 헤더:', Object.fromEntries(response.headers.entries()));
+        
         if (response.ok) {
+            const responseData = await response.json();
+            console.log('응답 데이터:', responseData);
+            
             document.getElementById('noticeTitle').value = '';
             document.getElementById('noticeContent').value = '';
             loadNotices();
+            alert('공지사항이 작성되었습니다!');
         } else {
-            alert('공지사항 작성에 실패했습니다.');
+            const errorData = await response.text();
+            console.error('API 오류 응답:', errorData);
+            alert('공지사항 작성에 실패했습니다. 상태 코드: ' + response.status);
         }
     } catch (error) {
         console.error('공지사항 작성 중 오류 발생:', error);
-        alert('공지사항 작성 중 오류가 발생했습니다.');
+        console.error('오류 상세:', error.message);
+        alert('공지사항 작성 중 오류가 발생했습니다: ' + error.message);
     }
 }
 

@@ -983,7 +983,7 @@ footer {
 }
 
 .menu-slider-wrapper {
-    width: 1000px;
+    width: 1800px;
     margin: 0 auto;
     overflow: hidden;
 }
@@ -992,6 +992,8 @@ footer {
     display: flex;
     transition: transform 0.3s ease;
     gap: 20px;
+    padding: 0;
+    margin: 0;
 }
 
 .menu-slide {
@@ -1006,8 +1008,25 @@ footer {
     display: none;
 }
 
-.menu-slide[data-category="sandwich"] {
-    display: block;
+/* 모든 카테고리 메뉴는 JavaScript에 의해 제어되도록 기본값 설정 */
+.menu-slide[data-category="panini"] {
+    display: none;
+}
+
+.menu-slide[data-category="soup"] {
+    display: none;
+}
+
+.menu-slide[data-category="salad"] {
+    display: none;
+}
+
+.menu-slide[data-category="drink"] {
+    display: none;
+}
+
+.menu-slide[data-category="dessert"] {
+    display: none;
 }
 
 .menu-slide img {
@@ -1057,14 +1076,36 @@ footer {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: white;
-    border: 1px solid var(--gray-light);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid var(--primary);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
     cursor: pointer;
-    z-index: 10;
+    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.slider-button:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.slider-button:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.slider-button i {
+    color: var(--primary);
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+}
+
+.slider-button:hover i {
+    color: white;
 }
 
 .slider-button.prev {
@@ -1077,12 +1118,28 @@ footer {
 
 @media (max-width: 1200px) {
     .menu-slider-wrapper {
-        width: 800px;
+        width: 1500px;
     }
     
     .menu-slide {
         flex: 0 0 185px;
         width: 185px;
+    }
+
+    .menu-slide[data-category="drink"] {
+        flex: 0 0 185px;
+        width: 185px;
+        padding: 1rem;
+    }
+
+    .menu-slide[data-category="drink"] h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .menu-slide[data-category="drink"] .description {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
     }
 }
 
@@ -1095,15 +1152,55 @@ footer {
         flex: 0 0 135px;
         width: 135px;
     }
+
+    .menu-slide[data-category="drink"] {
+        flex: 0 0 135px;
+        width: 135px;
+        padding: 0.8rem;
+    }
+
+    .menu-slide[data-category="drink"] h3 {
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .menu-slide[data-category="drink"] .description {
+        font-size: 0.8rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .slider-button {
+        width: 35px;
+        height: 35px;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.95);
+        border: 2px solid var(--primary);
+        box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    }
+    
+    .slider-button i {
+        font-size: 1.1rem;
+        color: var(--primary);
+    }
 }
 
 @media (max-width: 700px) {
     .menu-slider-container {
-        padding: 0 30px;
+        padding: 0 20px;
+        position: relative;
     }
 
     .menu-slider-wrapper {
         width: 400px;
+        overflow: hidden;
+        cursor: grab;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: pan-x;
+    }
+    
+    .menu-slider-wrapper:active {
+        cursor: grabbing;
     }
     
     .menu-slide {
@@ -1111,9 +1208,115 @@ footer {
         width: 85px;
     }
 
+    .menu-slide[data-category="drink"] {
+        flex: 0 0 85px;
+        width: 85px;
+        padding: 0.5rem;
+    }
+
+    .menu-slide[data-category="drink"] h3 {
+        font-size: 0.8rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .menu-slide[data-category="drink"] .description {
+        font-size: 0.7rem;
+        margin-bottom: 0.3rem;
+    }
+
     .slider-button {
-        width: 30px;
-        height: 30px;
+        width: 50px;
+        height: 50px;
+        z-index: 99999;
+        background: #ffffff;
+        border: 3px solid var(--primary);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        /* 모바일에서 터치 영역 확대 */
+        min-width: 60px;
+        min-height: 60px;
+        padding: 10px;
+    }
+    
+    .slider-button.prev {
+        left: 10px;
+    }
+    
+    .slider-button.next {
+        right: 10px;
+    }
+    
+    .slider-button i {
+        font-size: 1.6rem;
+        color: var(--primary);
+        font-weight: bold;
+        pointer-events: none;
+    }
+    
+    .slider-button:active {
+        transform: translateY(-50%) scale(0.9);
+        background: var(--primary);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    .slider-button:active i {
+        color: white;
+    }
+    
+    .slider-button:hover {
+        background: var(--primary);
+    }
+    
+    .slider-button:hover i {
+        color: white;
+    }
+    
+    /* 모바일에서 화살표 버튼 완전히 숨기기 */
+    .slider-button {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        position: absolute !important;
+        left: -9999px !important;
+        top: -9999px !important;
+    }
+    
+    /* 모바일에서 버튼이 비활성화되어도 터치 가능하도록 */
+    .slider-button[style*="opacity: 0.5"] {
+        pointer-events: auto !important;
+        cursor: pointer !important;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        touch-action: manipulation;
+    }
+    
+    /* 모바일에서 disabled 상태에서도 터치 가능하도록 */
+    .slider-button:disabled {
+        opacity: 0.5;
+        cursor: pointer !important;
+        pointer-events: auto !important;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        touch-action: manipulation;
+    }
+    
+    /* 모바일에서 버튼 터치 영역 확대 */
+    .slider-button::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        z-index: -1;
     }
 }
 
@@ -1348,4 +1551,23 @@ footer {
     .notice-form {
         padding: 1rem;
     }
+} 
+
+.menu-slide[data-category="dessert"] {
+    display: none;
+}
+
+.menu-slide[data-category="drink"] .menu-info {
+    padding: 0;
+}
+
+.menu-slide[data-category="drink"] h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+}
+
+.menu-slide[data-category="drink"] .description {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--gray);
 } 
