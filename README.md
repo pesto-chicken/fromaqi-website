@@ -1,62 +1,26 @@
 # FROMAQI 웹사이트
 
-프로마치(FROMAQI) 샌드위치 전문점의 공식 웹사이트입니다.
+프로마치(FROMAQI) 공식 브랜드 사이트 — https://www.fromaqi.com
 
-## 기술 스택
+빌드 과정이 없는 정적 사이트이며 Vercel에서 그대로 배포됩니다.
 
-- HTML5
-- CSS3
-- Google Fonts (Noto Sans KR)
-
-## 주요 기능
-
-- 반응형 웹 디자인
-- 모던한 UI/UX
-- 메뉴 소개
-- 위치 정보
-- 매장 소개
-
-## 설치 방법
-
-1. 저장소를 클론합니다:
-```bash
-git clone https://github.com/your-username/fromaqi-website.git
-```
-
-2. 프로젝트 디렉토리로 이동:
-```bash
-cd fromaqi-website
-```
-
-3. 웹 브라우저에서 `index.html` 파일을 엽니다.
-
-## 프로젝트 구조
+## 구조
 
 ```
-fromaqi-website/
-├── index.html
-├── styles.css
-├── images/
-│   ├── sandwich1.jpg
-│   ├── sandwich2.jpg
-│   └── sandwich3.jpg
-└── README.md
+index.html    홈 (브랜드, 대표 메뉴, 이야기, 온라인 스토어, 매장, 문의)
+menu.html     전체 메뉴
+styles.css    공통 스타일
+img/          웹용으로 압축한 사진 (WebP), 로고, 공유 이미지(og-image.jpg)
+sitemap.xml   검색엔진 제출용 페이지 목록
+robots.txt    검색엔진 수집 허용
+vercel.json   이미지 캐시, 예전 영문 페이지 리다이렉트
+naver…html    네이버 서치어드바이저 소유 확인 파일 (삭제 금지)
 ```
 
-## 기여 방법
+## 자주 하는 수정
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 라이선스
-
-MIT 라이선스에 따라 배포됩니다. 자세한 내용은 `LICENSE` 파일을 참조하세요.
-
-## 연락처
-
-프로마치 - [@fromaqi](https://instagram.com/fromaqi)
-
-프로젝트 링크: [https://github.com/your-username/fromaqi-website](https://github.com/your-username/fromaqi-website) 
+- **스마트스토어 연결:** `index.html`에서 `id="smartstore-link"` 버튼의 `href`에 스토어 주소를 넣고 `aria-disabled="true"`를 지웁니다. 버튼 문구도 "네이버 스마트스토어 바로가기"로 바꿉니다.
+- **매장 정보:** `index.html`의 `#stores` 영역과, `<head>` 안 구조화 데이터(JSON-LD)를 함께 고칩니다.
+- **메뉴·가격:** `menu.html`.
+- **사진 추가:** 가로 700~1200px WebP로 줄여 `img/`에 넣습니다.
+- 페이지를 추가하면 `sitemap.xml`에도 추가합니다.
