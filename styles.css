@@ -403,38 +403,3 @@ section { padding-block: 104px; }
 }
 .marquee-wrap { overflow: hidden; padding-block: 10px; margin-top: 18px; }
 .marquee-wrap .marquee { margin-top: 0; }
-
-/* ===== Fill empty white areas with soft brand tints (no extra orange) ===== */
-:root {
-  --navy-tint: #e3e9f7;
-  --cheese-tint: #fbf6cc;
-}
-section { padding-block: 76px; }
-.section-head { margin-bottom: 34px; }
-
-/* inset tinted panels, same shape as the hero */
-#signature, .story, #stores {
-  border-radius: var(--r-lg);
-  margin-inline: max(12px, env(safe-area-inset-left, 0px)) max(12px, env(safe-area-inset-right, 0px));
-  margin-block: 12px;
-}
-#signature { background: var(--navy-tint); }
-.story { background: var(--cheese-tint); }
-#stores { background: var(--navy-tint); }
-
-/* cards sit on the tints without heavy borders */
-.dish, .store { border-color: transparent; box-shadow: 0 18px 40px -30px rgba(23, 44, 102, .55); }
-.sauces span { background: #fff; border-color: transparent; }
-.collage img { border-color: #fff; }
-.hours tr.today { background: var(--cheese-tint); }
-#contact { padding-top: 64px !important; }
-.contact-item { border-color: transparent; box-shadow: 0 18px 40px -32px rgba(23, 44, 102, .5); }
-
-/* menu page: tinted bands behind each category */
-.menu-section:nth-of-type(even) { background: var(--navy-tint); }
-.menu-section { padding-block: 48px; }
-.item, .drink-list li { border-color: transparent; box-shadow: 0 14px 30px -26px rgba(23, 44, 102, .55); }
-
-@media (max-width: 960px) {
-  section { padding-block: 60px; }
-}
