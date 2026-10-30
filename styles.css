@@ -304,8 +304,8 @@ section { padding-block: 104px; }
 .site-footer a { color: var(--on-dark); text-decoration: none; font-weight: 600; }
 .site-footer a:hover { color: var(--cheese); }
 .wordmark {
-  font-family: var(--display); font-weight: 800; letter-spacing: -0.05em; line-height: .9;
-  font-size: clamp(64px, 19.4vw, 258px); color: var(--cheese);
+  font-family: var(--display); font-weight: 800; letter-spacing: -0.04em; line-height: 1;
+  font-size: clamp(44px, 8vw, 104px); color: var(--cheese);
   text-transform: uppercase; margin-top: 18px; user-select: none;
 }
 
