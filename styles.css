@@ -213,3 +213,12 @@ section { padding: 72px 0; }
   .drink-list { grid-template-columns: 1fr; }
   .story-photos img:first-child { margin-top: 20px; }
 }
+
+/* Menu page: price lookup links */
+.price-links { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 18px; font-size: 14px; }
+.price-links span { color: var(--ink-soft); margin-right: 4px; }
+.price-links a {
+  text-decoration: none; font-weight: 600; color: var(--basil);
+  padding: 6px 14px; border: 1.5px solid var(--basil); border-radius: 999px;
+}
+.price-links a:hover { background: var(--basil); color: var(--paper); }
