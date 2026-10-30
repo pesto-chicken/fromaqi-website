@@ -404,94 +404,37 @@ section { padding-block: 104px; }
 .marquee-wrap { overflow: hidden; padding-block: 10px; margin-top: 18px; }
 .marquee-wrap .marquee { margin-top: 0; }
 
-/* ===== Theme v3: navy + orange lead, yellow only as small accents ===== */
+/* ===== Fill empty white areas with soft brand tints (no extra orange) ===== */
 :root {
-  --bg: #f8ece0;          /* toasted-bread tint instead of plain white */
-  --ink: #1b2650;         /* navy-black text */
-  --ink-soft: #5a5f75;
-  --line: #ecdac8;
-  --tomato-dark: #c9461b;
-  --peach: #fde2cf;
+  --navy-tint: #e3e9f7;
+  --cheese-tint: #fbf6cc;
 }
-.kicker::before { background: var(--tomato); box-shadow: 0 0 0 4px rgba(229, 89, 40, .22); }
+section { padding-block: 76px; }
+.section-head { margin-bottom: 34px; }
 
-/* buttons: orange is the primary action */
-.btn-cheese { background: var(--tomato); color: #fff; box-shadow: 0 12px 30px -12px rgba(229, 89, 40, .75); }
-.btn-cheese:hover { background: var(--tomato-dark); }
-.nav .nav-cta { background: var(--tomato); color: #fff; }
-.nav .nav-cta:hover { background: var(--tomato-dark); color: #fff; }
-
-/* navy panels with orange glow */
-.panel {
-  background:
-    radial-gradient(900px 520px at 90% -5%, rgba(229, 89, 40, .42), transparent 62%),
-    radial-gradient(700px 480px at -5% 110%, rgba(237, 144, 40, .22), transparent 60%),
-    var(--basil-950);
-}
-.hero h1 mark { color: var(--tomato); background-image: none; }
-.hero-stats dd span { color: var(--crust); }
-.spin-badge circle:first-of-type { fill: var(--tomato); }
-.spin-badge text { fill: #fff; }
-
-/* marquee: orange band */
-.marquee { background: var(--tomato); color: #fff; border-block-color: var(--basil-900); }
-.marquee span::after { color: var(--cheese); }
-
-/* made in-house tiles */
-.tile .tag { background: var(--tomato); color: #fff; }
-
-/* signature: full orange panel */
-#signature {
-  background:
-    radial-gradient(700px 420px at 100% 0%, rgba(237, 144, 40, .55), transparent 65%),
-    var(--tomato);
-  color: #fff; border-radius: var(--r-lg);
+/* inset tinted panels, same shape as the hero */
+#signature, .story, #stores {
+  border-radius: var(--r-lg);
   margin-inline: max(12px, env(safe-area-inset-left, 0px)) max(12px, env(safe-area-inset-right, 0px));
+  margin-block: 12px;
 }
-#signature .section-head .kicker { color: var(--cheese); }
-#signature .kicker::before { background: var(--cheese); box-shadow: 0 0 0 4px rgba(240, 229, 49, .25); }
-#signature .section-head h2 { color: #fff; }
-#signature .btn-outline { background: var(--basil-900); color: #fff; border-color: var(--basil-900); }
-#signature .btn-outline:hover { background: var(--basil-950); }
-#signature .dish { border-color: transparent; box-shadow: 0 18px 40px -26px rgba(80, 20, 0, .6); }
-#signature .dish h3 { color: var(--ink); }
+#signature { background: var(--navy-tint); }
+.story { background: var(--cheese-tint); }
+#stores { background: var(--navy-tint); }
 
-/* story: warm peach panel */
-.story { background: var(--peach); }
-.story blockquote em { color: var(--tomato); }
-.story blockquote::before { color: var(--tomato); }
-.story .kicker { color: var(--tomato); }
-.sauces span { background: #fff; border-color: transparent; color: var(--basil-900); }
+/* cards sit on the tints without heavy borders */
+.dish, .store { border-color: transparent; box-shadow: 0 18px 40px -30px rgba(23, 44, 102, .55); }
+.sauces span { background: #fff; border-color: transparent; }
 .collage img { border-color: #fff; }
+.hours tr.today { background: var(--cheese-tint); }
+#contact { padding-top: 64px !important; }
+.contact-item { border-color: transparent; box-shadow: 0 18px 40px -32px rgba(23, 44, 102, .5); }
 
-/* shop: navy with orange accents */
-.shop-card {
-  background:
-    radial-gradient(560px 380px at 100% 0%, rgba(229, 89, 40, .5), transparent 65%),
-    radial-gradient(520px 360px at 0% 100%, rgba(237, 144, 40, .2), transparent 60%),
-    var(--basil-900);
+/* menu page: tinted bands behind each category */
+.menu-section:nth-of-type(even) { background: var(--navy-tint); }
+.menu-section { padding-block: 48px; }
+.item, .drink-list li { border-color: transparent; box-shadow: 0 14px 30px -26px rgba(23, 44, 102, .55); }
+
+@media (max-width: 960px) {
+  section { padding-block: 60px; }
 }
-.shop-visual .soon { background: var(--tomato); color: #fff; }
-.products li { border-color: rgba(255, 255, 255, .18); }
-
-/* stores */
-.store { border-color: transparent; box-shadow: 0 20px 40px -32px rgba(27, 38, 80, .5); }
-.store-head { background: radial-gradient(300px 160px at 100% 0%, rgba(229, 89, 40, .45), transparent 70%), var(--basil-900); }
-.store-type { color: var(--crust); }
-.hours tr.today { background: #fde2cf; }
-.btn-outline { border-color: var(--line); }
-
-/* contact */
-.contact-item { border-color: transparent; border-top: 5px solid var(--tomato); }
-.contact-item:nth-child(2) { border-top-color: var(--basil-900); }
-
-/* menu page */
-.menu-hero .kicker { color: var(--cheese); }
-.price-links a { color: #fff; border-color: rgba(255, 255, 255, .4); }
-.price-links a:hover { background: var(--tomato); border-color: var(--tomato); color: #fff; }
-.menu-tabs { background: rgba(248, 236, 224, .9); }
-.menu-tabs a:hover { background: var(--tomato); border-color: var(--tomato); color: #fff; }
-.menu-section h2 { color: var(--basil-900); }
-.item { border-color: transparent; box-shadow: 0 16px 34px -28px rgba(27, 38, 80, .5); }
-.drink-list li { border-color: transparent; }
-#signature { margin-block: 12px; }
