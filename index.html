@@ -21,8 +21,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=2026a">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&display=swap">
+  <link rel="stylesheet" href="styles.css?v=2026b">
 
   <script type="application/ld+json">
   {
@@ -97,52 +97,76 @@
   </header>
 
   <main>
-    <section class="hero">
+    <section class="hero panel">
       <div class="wrap">
-        <div>
-          <span class="eyebrow">FROMAQI · The Cheese Sandwich</span>
-          <h1>빵부터 소스까지,<br><em>전부 직접</em> 만듭니다</h1>
-          <p class="lead">매일 아침 굽는 치아바타, 생바질을 듬뿍 갈아 만든 페스토, 4일 숙성한 파스트라미. 프로마치의 샌드위치와 파니니는 재료 하나하나를 매장에서 직접 만드는 데서 시작합니다.</p>
+        <div class="hero-copy">
+          <span class="kicker">The Cheese Sandwich</span>
+          <h1><span class="line">빵부터 소스까지,</span><span class="line"><mark>전부 직접</mark> 만듭니다.</span></h1>
+          <p class="lead">매일 아침 굽는 치아바타, 생바질을 듬뿍 갈아 만든 페스토, 4일 숙성한 파스트라미. 프로마치의 샌드위치는 재료 하나하나를 직접 만드는 데서 시작합니다.</p>
           <div class="hero-actions">
-            <a class="btn btn-solid" href="menu.html">메뉴 보기</a>
-            <a class="btn btn-line" href="#stores">가까운 매장 찾기</a>
+            <a class="btn btn-cheese" href="menu.html">메뉴 보기 <span class="arr" aria-hidden="true">→</span></a>
+            <a class="btn btn-ghost" href="#stores">가까운 매장 찾기</a>
           </div>
+          <dl class="hero-stats">
+            <div><dt>안암동에서</dt><dd>10<span>년차</span></dd></div>
+            <div><dt>직접 만드는 소스</dt><dd>6<span>종</span></dd></div>
+            <div><dt>파스트라미 숙성</dt><dd>4<span>일</span></dd></div>
+          </dl>
         </div>
-        <div class="hero-photo">
+        <div class="hero-visual">
           <img src="img/hero.webp" alt="치아바타 샌드위치와 샐러드, 수프가 차려진 프로마치 테이블" width="1170" height="873" fetchpriority="high">
+          <span class="float-tag t1"><i aria-hidden="true">●</i>매일 아침 굽는 치아바타</span>
+          <span class="float-tag t2"><i aria-hidden="true">●</i>생바질 페스토</span>
+          <svg class="spin-badge" viewBox="0 0 128 128" aria-hidden="true">
+            <circle cx="64" cy="64" r="62" fill="#ffc83d"/>
+            <g class="ring">
+              <defs><path id="ringPath" d="M64,64 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
+              <text><textPath href="#ringPath">FROMAQI · HOMEMADE · CIABATTA ·</textPath></text>
+            </g>
+            <circle cx="64" cy="64" r="26" fill="#0a1c12"/>
+            <ellipse cx="64" cy="66" rx="15" ry="9" fill="#ffc83d"/>
+            <path d="M55 62 l4 7 M62 60 l4 8 M69 61 l4 7" stroke="#0a1c12" stroke-width="2" stroke-linecap="round" fill="none"/>
+          </svg>
         </div>
       </div>
     </section>
 
-    <section class="band" id="made">
+    <div class="marquee-wrap"><div class="marquee" aria-hidden="true">
+      <div class="track">
+        <span>Ciabatta</span><span>Basil Pesto</span><span>Pastrami</span><span>Ricotta</span><span>Panini</span><span>Homemade Sauce</span>
+        <span>Ciabatta</span><span>Basil Pesto</span><span>Pastrami</span><span>Ricotta</span><span>Panini</span><span>Homemade Sauce</span>
+      </div>
+    </div></div>
+
+    <section id="made">
       <div class="wrap">
         <div class="section-head">
-          <span class="eyebrow">Made in-house</span>
+          <span class="kicker">Made in-house</span>
           <h2>프로마치가 매일 직접 만드는 세 가지</h2>
         </div>
-        <div class="made-grid">
-          <article class="made-card">
+        <div class="bento">
+          <article class="tile tile-lg">
             <img src="img/ciabatta.webp" alt="겉은 바삭하고 속은 촉촉한 치아바타 단면" width="1000" height="750" loading="lazy">
-            <div>
-              <span class="num">01</span>
-              <h3>매일 굽는 치아바타</h3>
-              <p>매일 아침 매장에서 구워 겉은 바삭하고 속은 쫄깃합니다. 모든 샌드위치와 파니니의 바탕이 되는 빵입니다.</p>
+            <div class="cap">
+              <span class="tag">Bread</span>
+              <h3>매일 아침 굽는 치아바타</h3>
+              <p>겉은 바삭하고 속은 쫄깃합니다. 모든 샌드위치와 파니니의 바탕이 되는 빵을 매일 매장에서 굽습니다.</p>
             </div>
           </article>
-          <article class="made-card">
+          <article class="tile">
             <img src="img/pesto.webp" alt="갓 갈아낸 초록빛 생바질 페스토" width="900" height="1200" loading="lazy">
-            <div>
-              <span class="num">02</span>
+            <div class="cap">
+              <span class="tag">Sauce</span>
               <h3>생바질 페스토</h3>
-              <p>신선한 생바질을 아낌없이 갈아 만드는 홈메이드 페스토. 바질 본연의 향을 그대로 살렸습니다.</p>
+              <p>신선한 생바질을 아낌없이 갈아 바질 본연의 향을 살렸습니다.</p>
             </div>
           </article>
-          <article class="made-card">
+          <article class="tile">
             <img src="img/pastrami.webp" alt="얇게 썬 프로마치 파스트라미" width="1000" height="750" loading="lazy">
-            <div>
-              <span class="num">03</span>
+            <div class="cap">
+              <span class="tag">Meat</span>
               <h3>4일 숙성 파스트라미</h3>
-              <p>4일간 숙성한 뒤 2시간 동안 천천히 구워 부드럽고 진한 맛을 냅니다.</p>
+              <p>4일간 숙성한 뒤 2시간 동안 천천히 굽습니다.</p>
             </div>
           </article>
         </div>
@@ -151,48 +175,49 @@
 
     <section id="signature">
       <div class="wrap">
-        <div class="section-head">
-          <span class="eyebrow">Signature</span>
-          <h2>가장 많이 찾는 메뉴</h2>
+        <div class="section-head split">
+          <div>
+            <span class="kicker">Signature</span>
+            <h2>가장 많이 찾는 메뉴</h2>
+          </div>
+          <a class="btn btn-outline" href="menu.html">전체 메뉴 보기 <span class="arr" aria-hidden="true">→</span></a>
         </div>
-        <div class="menu-row">
+        <div class="dish-grid">
           <a class="dish" href="menu.html#sandwich">
-            <img src="img/menu/sandwich-pesto-chicken.webp" alt="페스토 치킨 샌드위치" width="700" height="520" loading="lazy">
-            <h3>페스토 치킨</h3>
-            <p>숙성 염지 닭가슴살 · 바질 페스토</p>
+            <div class="ph"><img src="img/menu/sandwich-pesto-chicken.webp" alt="페스토 치킨 샌드위치" width="700" height="520" loading="lazy"></div>
+            <div class="meta"><span class="chip">샌드위치</span><h3>페스토 치킨</h3><p>숙성 염지 닭가슴살 · 바질 페스토</p></div>
           </a>
           <a class="dish" href="menu.html#sandwich">
-            <img src="img/menu/sandwich-pork-pastrami.webp" alt="포크 파스트라미 샌드위치" width="700" height="523" loading="lazy">
-            <h3>포크 파스트라미</h3>
-            <p>숙성 파스트라미 · 채소 볶음 · 모짜렐라</p>
+            <div class="ph"><img src="img/menu/sandwich-pork-pastrami.webp" alt="포크 파스트라미 샌드위치" width="700" height="523" loading="lazy"></div>
+            <div class="meta"><span class="chip">샌드위치</span><h3>포크 파스트라미</h3><p>숙성 파스트라미 · 모짜렐라</p></div>
           </a>
           <a class="dish" href="menu.html#panini">
-            <img src="img/menu/panini-curry-chicken.webp" alt="커리 치킨 파니니" width="700" height="522" loading="lazy">
-            <h3>커리 치킨 파니니</h3>
-            <p>홈메이드 커리 소스 · 모짜렐라</p>
+            <div class="ph"><img src="img/menu/panini-curry-chicken.webp" alt="커리 치킨 파니니" width="700" height="522" loading="lazy"></div>
+            <div class="meta"><span class="chip">파니니</span><h3>커리 치킨 파니니</h3><p>홈메이드 커리 소스 · 모짜렐라</p></div>
           </a>
           <a class="dish" href="menu.html#salad">
-            <img src="img/menu/salad-ricotta.webp" alt="리코타 치즈 샐러드" width="700" height="522" loading="lazy">
-            <h3>리코타 샐러드</h3>
-            <p>직접 만든 리코타 · 견과류 · 치아바타</p>
+            <div class="ph"><img src="img/menu/salad-ricotta.webp" alt="리코타 치즈 샐러드" width="700" height="522" loading="lazy"></div>
+            <div class="meta"><span class="chip">샐러드</span><h3>리코타 샐러드</h3><p>직접 만든 리코타 · 견과류</p></div>
           </a>
         </div>
-        <div class="section-foot"><a class="btn btn-line" href="menu.html">전체 메뉴 보기</a></div>
       </div>
     </section>
 
-    <section class="band story" id="story">
+    <section class="story" id="story">
       <div class="wrap">
         <div>
-          <span class="eyebrow">Brand Story</span>
-          <blockquote>“집밥 이상의 밥은 없다”는 마음으로, 소스 하나까지 직접 만듭니다.</blockquote>
-          <p>프로마치는 안암동 고려대 앞에서 시작해 10년 넘게 같은 방식으로 샌드위치를 만들어 왔습니다. 바질 페스토, 치킨시저, 와사비, 커리 소스와 타코 시즈닝까지 모든 소스는 다국적 스태프가 머리를 맞대 완성한 홈메이드 레시피입니다.</p>
-          <p>빵은 매일 굽고, 리코타 치즈와 파스트라미도 매장에서 직접 만듭니다. 그래서 프로마치의 샌드위치는 어디서도 같은 맛을 찾기 어렵습니다.</p>
-          <div class="tags"><span>안암 본점</span><span>고려대 앞 샌드위치</span><span>홈메이드 소스</span><span>매일 굽는 빵</span></div>
+          <span class="kicker">Brand Story</span>
+          <blockquote>집밥 이상의 밥은 없다는 마음으로, <em>소스 하나까지</em> 직접 만듭니다.</blockquote>
+          <p>프로마치는 안암동 고려대 앞에서 시작해 10년째 같은 방식으로 샌드위치를 만들고 있습니다. 모든 소스는 다국적 스태프가 머리를 맞대 완성한 홈메이드 레시피입니다.</p>
+          <p>빵은 매일 굽고, 리코타 치즈와 파스트라미도 직접 만듭니다.</p>
+          <div class="sauces" aria-label="프로마치가 직접 만드는 소스">
+            <span>바질 페스토</span><span>치킨시저</span><span>블루치즈</span><span>와사비</span><span>커리</span><span>타코 시즈닝</span>
+          </div>
         </div>
-        <div class="story-photos">
-          <img src="img/basil.webp" alt="손질한 생바질 잎" width="453" height="604" loading="lazy">
-          <img src="img/menu/cookie.webp" alt="매장에서 굽는 수제 쿠키" width="700" height="525" loading="lazy">
+        <div class="collage">
+          <img class="c1" src="img/basil.webp" alt="손질한 생바질 잎" width="453" height="604" loading="lazy">
+          <img class="c2" src="img/menu/soup-tomato.webp" alt="토마토 수프와 치아바타" width="700" height="519" loading="lazy">
+          <img class="c3" src="img/menu/cookie.webp" alt="매장에서 굽는 수제 쿠키" width="700" height="525" loading="lazy">
         </div>
       </div>
     </section>
@@ -200,94 +225,106 @@
     <section id="shop">
       <div class="wrap">
         <div class="shop-card">
-          <div class="copy">
-            <span class="eyebrow">Online Store</span>
-            <h2>프로마치의 빵과 소스를<br>집에서도</h2>
+          <div>
+            <span class="kicker">Online Store</span>
+            <h2>프로마치의 빵과 소스를 집에서도</h2>
             <p>매장에서 매일 만드는 치아바타와 바질 페스토를 집에서도 즐길 수 있도록 온라인 스토어를 준비하고 있습니다.</p>
-            <ul>
-              <li>냉동 치아바타</li>
-              <li>생바질 페스토</li>
-              <li>홈 파니니 키트</li>
+            <ul class="products">
+              <li>냉동 치아바타<small>오븐에 데워 갓 구운 그대로</small></li>
+              <li>생바질 페스토<small>파스타 · 샌드위치 · 샐러드</small></li>
+              <li>홈 파니니 키트<small>빵 + 페스토 + 크루통</small></li>
             </ul>
             <!-- 스마트스토어 개설 후: href에 스토어 주소를 넣고 aria-disabled 속성을 지우면 버튼이 활성화됩니다. -->
-            <a class="btn btn-gold" id="smartstore-link" href="#shop" aria-disabled="true">네이버 스마트스토어 · 오픈 준비 중</a>
+            <a class="btn btn-cheese" id="smartstore-link" href="#shop" aria-disabled="true">네이버 스마트스토어 · 오픈 준비 중</a>
             <p class="shop-note">오픈 소식은 인스타그램 <a href="https://www.instagram.com/fromaqi" target="_blank" rel="noopener">@fromaqi</a>에서 가장 먼저 알려드립니다.</p>
           </div>
-          <img src="img/ciabatta.webp" alt="프로마치 치아바타" width="1000" height="750" loading="lazy">
+          <div class="shop-visual">
+            <img src="img/ciabatta.webp" alt="프로마치 치아바타" width="1000" height="750" loading="lazy">
+            <span class="soon">Coming soon</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="band" id="stores">
+    <section id="stores">
       <div class="wrap">
         <div class="section-head">
-          <span class="eyebrow">Stores</span>
+          <span class="kicker">Stores</span>
           <h2>프로마치 매장</h2>
           <p>라스트오더는 마감 30분 전입니다.</p>
         </div>
         <div class="store-grid">
-          <article class="store">
-            <span class="badge">본점</span>
-            <h3>안암점</h3>
-            <address>서울 성북구 고려대로24가길 13, 1층</address>
-            <p class="way">안암역 2번 출구 도보 5분</p>
-            <table class="hours">
-              <tr><th>월–금</th><td>11:00 – 21:00</td></tr>
-              <tr><th>토</th><td>11:00 – 20:00</td></tr>
-              <tr><th>일</th><td class="off">정기휴무</td></tr>
-            </table>
-            <div class="actions">
-              <a class="btn btn-solid" href="https://naver.me/xDJubitA" target="_blank" rel="noopener">네이버 지도</a>
-              <a class="btn btn-line" href="tel:070-4038-8537">070-4038-8537</a>
+          <article class="store" data-hours='[null,"11:00-21:00","11:00-21:00","11:00-21:00","11:00-21:00","11:00-21:00","11:00-20:00"]'>
+            <div class="store-head">
+              <div class="row"><span class="store-type">Flagship</span><span class="status" hidden></span></div>
+              <h3>안암점 <small style="font-size:15px;font-weight:600;opacity:.7">본점</small></h3>
+            </div>
+            <div class="store-body">
+              <address>서울 성북구 고려대로24가길 13, 1층</address>
+              <p class="way">안암역 2번 출구 도보 5분</p>
+              <table class="hours">
+                <tr data-days="1,2,3,4,5"><th>월–금</th><td>11:00 – 21:00</td></tr>
+                <tr data-days="6"><th>토</th><td>11:00 – 20:00</td></tr>
+                <tr data-days="0"><th>일</th><td class="off">정기휴무</td></tr>
+              </table>
+              <div class="actions">
+                <a class="btn btn-dark" href="https://naver.me/xDJubitA" target="_blank" rel="noopener">네이버 지도</a>
+                <a class="btn btn-outline" href="tel:070-4038-8537">070-4038-8537</a>
+              </div>
             </div>
           </article>
-          <article class="store">
-            <span class="badge">직영점</span>
-            <h3>논현언주점</h3>
-            <address>서울 강남구 논현로111길 22, 101호</address>
-            <p class="way">언주역 1번 출구</p>
-            <table class="hours">
-              <tr><th>월–토</th><td>11:00 – 21:00</td></tr>
-              <tr><th>일</th><td class="off">정기휴무</td></tr>
-            </table>
-            <div class="actions">
-              <a class="btn btn-solid" href="https://naver.me/xprAUMwZ" target="_blank" rel="noopener">네이버 지도</a>
-              <a class="btn btn-line" href="tel:070-8845-3459">070-8845-3459</a>
+          <article class="store" data-hours='[null,"11:00-21:00","11:00-21:00","11:00-21:00","11:00-21:00","11:00-21:00","11:00-21:00"]'>
+            <div class="store-head">
+              <div class="row"><span class="store-type">Direct</span><span class="status" hidden></span></div>
+              <h3>논현언주점</h3>
+            </div>
+            <div class="store-body">
+              <address>서울 강남구 논현로111길 22, 101호</address>
+              <p class="way">언주역 1번 출구</p>
+              <table class="hours">
+                <tr data-days="1,2,3,4,5,6"><th>월–토</th><td>11:00 – 21:00</td></tr>
+                <tr data-days="0"><th>일</th><td class="off">정기휴무</td></tr>
+              </table>
+              <div class="actions">
+                <a class="btn btn-dark" href="https://naver.me/xprAUMwZ" target="_blank" rel="noopener">네이버 지도</a>
+                <a class="btn btn-outline" href="tel:070-8845-3459">070-8845-3459</a>
+              </div>
             </div>
           </article>
-          <article class="store">
-            <span class="badge">가맹점</span>
-            <h3>청주 사창동점</h3>
-            <address>충북 청주시 서원구 1순환로 696, 1층</address>
-            <p class="way">사창지구대 옆</p>
-            <table class="hours">
-              <tr><th>월–금</th><td>10:00 – 21:00</td></tr>
-              <tr><th>토</th><td>11:00 – 20:00</td></tr>
-              <tr><th>일</th><td>11:00 – 19:00</td></tr>
-            </table>
-            <div class="actions">
-              <a class="btn btn-solid" href="https://naver.me/xLWtXKuV" target="_blank" rel="noopener">네이버 지도</a>
-              <a class="btn btn-line" href="tel:043-264-8557">043-264-8557</a>
+          <article class="store" data-hours='["11:00-19:00","10:00-21:00","10:00-21:00","10:00-21:00","10:00-21:00","10:00-21:00","11:00-20:00"]'>
+            <div class="store-head">
+              <div class="row"><span class="store-type">Franchise</span><span class="status" hidden></span></div>
+              <h3>청주 사창동점</h3>
+            </div>
+            <div class="store-body">
+              <address>충북 청주시 서원구 1순환로 696, 1층</address>
+              <p class="way">사창지구대 옆</p>
+              <table class="hours">
+                <tr data-days="1,2,3,4,5"><th>월–금</th><td>10:00 – 21:00</td></tr>
+                <tr data-days="6"><th>토</th><td>11:00 – 20:00</td></tr>
+                <tr data-days="0"><th>일</th><td>11:00 – 19:00</td></tr>
+              </table>
+              <div class="actions">
+                <a class="btn btn-dark" href="https://naver.me/xLWtXKuV" target="_blank" rel="noopener">네이버 지도</a>
+                <a class="btn btn-outline" href="tel:043-264-8557">043-264-8557</a>
+              </div>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="contact" id="contact">
+    <section id="contact" style="padding-top:0">
       <div class="wrap">
-        <div class="section-head">
-          <span class="eyebrow">Contact</span>
-          <h2>단체 주문과 문의</h2>
-          <p>행사·회의용 단체 주문은 가까운 매장으로 미리 연락 주세요.</p>
-        </div>
-        <div class="contact-list">
+        <div class="contact-grid">
           <div class="contact-item">
+            <span class="kicker">Catering</span>
             <h3>단체 주문 · 케이터링</h3>
-            <p>가까운 매장으로 전화 주시면 수량과 픽업 시간을 맞춰 드립니다.<br>
+            <p>행사·회의용 단체 주문은 가까운 매장으로 미리 연락 주세요. 수량과 픽업 시간을 맞춰 드립니다.<br>
             안암 <a href="tel:070-4038-8537">070-4038-8537</a> · 논현언주 <a href="tel:070-8845-3459">070-8845-3459</a></p>
           </div>
           <div class="contact-item">
+            <span class="kicker">Partnership</span>
             <h3>가맹 · 제휴 문의</h3>
             <p>본점 <a href="tel:070-4038-8537">070-4038-8537</a> 또는 인스타그램 <a href="https://www.instagram.com/fromaqi" target="_blank" rel="noopener">@fromaqi</a> 메시지로 연락 주세요.</p>
           </div>
@@ -299,13 +336,43 @@
   <footer class="site-footer">
     <div class="wrap">
       <div class="row">
-        <strong>FROMAQI</strong>
-        <div class="social"><a href="https://www.instagram.com/fromaqi" target="_blank" rel="noopener">Instagram</a></div>
+        <span>주식회사 에스엔씨엘인터내셔널 · 대표 이산 · 사업자등록번호 108-81-99752<br>본점 서울 성북구 고려대로24가길 13 · 대표전화 070-4038-8537</span>
+        <a href="https://www.instagram.com/fromaqi" target="_blank" rel="noopener">Instagram ↗</a>
       </div>
-      <p>주식회사 에스엔씨엘인터내셔널 · 대표 이산 · 사업자등록번호 108-81-99752<br>
-      본점 서울 성북구 고려대로24가길 13 · 대표전화 070-4038-8537</p>
       <p>© FROMAQI. All rights reserved.</p>
+      <div class="wordmark" aria-hidden="true">FROMAQI</div>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var stores = document.querySelectorAll('[data-hours]');
+      if (!stores.length || !window.Intl) return;
+      var parts = {};
+      new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Seoul', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false })
+        .formatToParts(new Date()).forEach(function (p) { parts[p.type] = p.value; });
+      var day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(parts.weekday);
+      var now = (parseInt(parts.hour, 10) % 24) * 60 + parseInt(parts.minute, 10);
+      var toMin = function (s) { var a = s.split(':'); return +a[0] * 60 + +a[1]; };
+      stores.forEach(function (el) {
+        var hours = JSON.parse(el.getAttribute('data-hours'));
+        var today = hours[day];
+        var badge = el.querySelector('.status');
+        var text = '오늘 휴무', open = false;
+        if (today) {
+          var r = today.split('-'), a = toMin(r[0]), b = toMin(r[1]);
+          if (now < a) text = r[0] + ' 오픈';
+          else if (now < b) { open = true; text = '영업 중'; }
+          else text = '영업 종료';
+        }
+        badge.textContent = text;
+        badge.classList.add(open ? 'is-open' : 'is-closed');
+        badge.hidden = false;
+        el.querySelectorAll('tr[data-days]').forEach(function (tr) {
+          if (tr.getAttribute('data-days').split(',').indexOf(String(day)) > -1) tr.classList.add('today');
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
