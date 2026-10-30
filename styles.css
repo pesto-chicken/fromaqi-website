@@ -297,16 +297,16 @@ section { padding-block: 104px; }
 .site-footer {
   margin: 0 max(12px, env(safe-area-inset-left, 0px)) 12px max(12px, env(safe-area-inset-right, 0px));
   border-radius: var(--r-lg); background: var(--basil-950); color: var(--on-dark-soft);
-  padding-block: 56px 28px; font-size: 13px; overflow: hidden;
+  padding-block: 56px 36px; font-size: 13px; overflow: hidden;
 }
 .site-footer .wrap { display: grid; gap: 16px; }
 .site-footer .row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
 .site-footer a { color: var(--on-dark); text-decoration: none; font-weight: 600; }
 .site-footer a:hover { color: var(--cheese); }
 .wordmark {
-  font-family: var(--display); font-weight: 800; letter-spacing: -0.05em; line-height: .82;
-  font-size: clamp(72px, 17vw, 230px); color: transparent;
-  -webkit-text-stroke: 1.5px rgba(255, 200, 61, .55); margin-top: 18px; user-select: none;
+  font-family: var(--display); font-weight: 800; letter-spacing: -0.05em; line-height: .9;
+  font-size: clamp(64px, 19.4vw, 258px); color: var(--cheese);
+  text-transform: uppercase; margin-top: 18px; user-select: none;
 }
 
 /* ---------- Menu page ---------- */
