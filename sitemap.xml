@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.fromaqi.com/</loc>
-    <lastmod>2026-10-29</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.fromaqi.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.fromaqi.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.fromaqi.com/zh/"/>
+    <lastmod>2026-11-09</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.fromaqi.com/menu.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.fromaqi.com/menu.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.fromaqi.com/en/menu.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.fromaqi.com/zh/menu.html"/>
+    <lastmod>2026-11-09</lastmod>
     <priority>0.8</priority>
   </url>
+  <url><loc>https://www.fromaqi.com/en/</loc><lastmod>2026-11-09</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.fromaqi.com/en/menu.html</loc><lastmod>2026-11-09</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.fromaqi.com/zh/</loc><lastmod>2026-11-09</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.fromaqi.com/zh/menu.html</loc><lastmod>2026-11-09</lastmod><priority>0.6</priority></url>
 </urlset>
