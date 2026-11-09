@@ -433,3 +433,4 @@ section { padding-block: 104px; }
   .nav a { padding: 7px 7px; }
 }
 .nav a, .lang summary, .lang-menu a { white-space: nowrap; }
+.legal-ko { display: block; margin-top: 8px; font-size: 11.5px; opacity: .6; }

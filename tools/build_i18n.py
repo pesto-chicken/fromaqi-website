@@ -33,7 +33,11 @@ KEEP_KO = [
 ]
 
 # ---------------------------------------------------------------- shared (both pages)
+LEGAL_KO = KEEP_KO[0]
 COMMON = [
+    (f'<span>{LEGAL_KO}</span>',
+     f'<span>S AND CL INTERNATIONAL CO., LTD. · Business Registration No. 108-81-99752<br>Head office: 1F, 13 Goryeodae-ro 24ga-gil, Seongbuk-gu, Seoul · +82 70-4038-8537<small class="legal-ko">{LEGAL_KO}</small></span>',
+     f'<span>S AND CL INTERNATIONAL CO., LTD. · 营业登记号码 108-81-99752<br>总店：首尔特别市 城北区 Goryeodae-ro 24ga-gil 13, 1层 · 电话 +82 70-4038-8537<small class="legal-ko">{LEGAL_KO}</small></span>'),
     ('aria-label="프로마치 홈"', 'aria-label="FROMAQI home"', 'aria-label="FROMAQI 首页"'),
     ('alt="FROMAQI 프로마치 샌드위치 델리"', 'alt="FROMAQI Sandwich Deli"', 'alt="FROMAQI 三明治熟食店"'),
     ('>메뉴</a>', '>Menu</a>', '>菜单</a>'),
