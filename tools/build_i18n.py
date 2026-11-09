@@ -324,7 +324,7 @@ def build(lang, file, table):
                   f'<link rel="canonical" href="https://www.fromaqi.com/{lang}/{path}">')
     s = s.replace(f'<meta property="og:url" content="https://www.fromaqi.com/{path}">',
                   f'<meta property="og:url" content="https://www.fromaqi.com/{lang}/{path}">')
-    s = re.sub(r'\s*<meta name="naver-site-verification"[^>]*>', '', s)
+    s = re.sub(r'\s*<meta name="(naver|google)-site-verification"[^>]*>', '', s)
     # Korean structured data stays on the Korean page only
     s = re.sub(r'\s*<script type="application/ld\+json">.*?</script>', '', s, flags=re.S)
     s = re.sub(r'<details class="lang">.*?</details>', switcher(lang, file), s, flags=re.S)
