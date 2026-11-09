@@ -2,11 +2,24 @@
   "headers": [
     {
       "source": "/img/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000"
+        }
+      ]
     }
   ],
   "redirects": [
-    { "source": "/index_en.html", "destination": "/", "permanent": true },
-    { "source": "/menu_en.html", "destination": "/menu.html", "permanent": true }
+    {
+      "source": "/index_en.html",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/menu_en.html",
+      "destination": "/en/menu.html",
+      "permanent": true
+    }
   ]
 }
